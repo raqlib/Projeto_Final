@@ -18,11 +18,11 @@ const openMySqlConnection = () => {
 
 const addArtigo = (req, res) => {
   const body = req.body;
-  const values = [[body.nome, body.idCategoria, body.quantidade]];
+  const values = [[body.nome, body.id_categoria, body.quantidade]];
 
   const connection = openMySqlConnection();
   const queryIArtigo =
-    "INSERT INTO artigo (nome, idCategoria, quantidade) VALUES (?)";
+    "INSERT INTO artigo (nome, id_categoria, quantidade) VALUES (?)";
 
   connection.query(queryIArtigo, values, (err, result) => {
     if (err) res.json(err);
@@ -94,10 +94,10 @@ const updateArtigo = (req, res) => {
   const connection = openMySqlConnection();
 
   const queryUArtigo =
-    "UPDATE artigo SET nome = ?, idCategoria = ?, quantidade = ? WHERE id = ?;";
+    "UPDATE artigo SET nome = ?, id_categoria = ?, quantidade = ? WHERE id = ?;";
   const values = [
     [body.nome],
-    [body.idCategoria],
+    [body.id_categoria],
     [body.quantidade],
     [body.id],
   ];
