@@ -5,7 +5,7 @@ const openMySqlConnection = () => {
     host: "localhost",
     user: "root",
     password: "",
-    database: "meuprojetopg",
+    database: "inventory_tracking",
   });
   connection.connect((err) => {
     if (err) throw err;
@@ -17,16 +17,17 @@ const openMySqlConnection = () => {
 };
 
 const addArtigo = (req, res) => {
-  const bodyRequest = req.body;
-  const values = [[bodyRequest.nome, bodyRequest.idCategoria, bodyRequest.quantidade]];
+  const body = req.body;
+  const values = [[body.nome, body.idCategoria, body.quantidade]];
 
   const connection = openMySqlConnection();
-  const queryIArtigo = "INSERT INTO artigo (nome, idCategoria, quantidade) VALUES (?)";
+  const queryIArtigo =
+    "INSERT INTO artigo (nome, idCategoria, quantidade) VALUES (?)";
 
   connection.query(queryIArtigo, values, (err, result) => {
     if (err) res.json(err);
 
-    res.send("Pessoa Introduzida com Sucesso com o ID:" + result.insertId);
+    res.send("Artigo Introduzido com Sucesso com o ID:" + result.insertId);
 
     console.log(
       "Close connection to MySql database: " + connection.config.database
@@ -35,10 +36,29 @@ const addArtigo = (req, res) => {
   });
 };
 
-const getPessoas = (req, res) => {
+const addACategoria = (req, res) => {
+  const body = req.body;
+  const values = [[body.tipo]];
+
   const connection = openMySqlConnection();
-  const querySPessoas = "SELECT * FROM pessoa;";
-  connection.query(querySPessoas, (err, result) => {
+  const queryICategoria = "INSERT INTO categoria (tipo) VALUES (?)";
+
+  connection.query(queryICategoria, values, (err, result) => {
+    if (err) res.json(err);
+
+    res.send("Categoria Introduzida com Sucesso com o ID:" + result.insertId);
+
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
+
+const getArtigos = (req, res) => {
+  const connection = openMySqlConnection();
+  const querySArtigos = "SELECT * FROM artigo;";
+  connection.query(querySArtigos, (err, result) => {
     if (err) res.json(err);
 
     res.json(result);
@@ -50,12 +70,13 @@ const getPessoas = (req, res) => {
   });
 };
 
-const getPessoa = (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+const getArtigosPorCategoria = () => {};
+const getArtigosPorNome = () => {};
+
+const getCategorias = (req, res) => {
   const connection = openMySqlConnection();
-  const querySPessoa = "SELECT * FROM pessoa WHERE id = ?;";
-  connection.query(querySPessoa, id, (err, result) => {
+  const querySCategorias = "SELECT * FROM categoria;";
+  connection.query(querySCategorias, (err, result) => {
     if (err) res.json(err);
 
     res.json(result);
@@ -66,6 +87,36 @@ const getPessoa = (req, res) => {
     connection.end();
   });
 };
+
+const updateArtigo = (req, res) => {
+  const body = req.body;
+
+  const connection = openMySqlConnection();
+
+  const queryUArtigo =
+    "UPDATE artigo SET nome = ?, idCategoria = ?, quantidade = ? WHERE id = ?;";
+  const values = [
+    [body.nome],
+    [body.idCategoria],
+    [body.quantidade],
+    [body.id],
+  ];
+
+  connection.query(queryUArtigo, values, (err, result) => {
+    if (err) res.json(err);
+    res.send("Artigo com o Id: " + body.id + " atualizado com sucesso!");
+
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
+
+const updateCategoria = () => {};
+
+const deleteArtigo = () => {};
+const deleteCategoria = () => {};
 
 module.exports = {
   addArtigo,
@@ -77,5 +128,5 @@ module.exports = {
   updateArtigo,
   updateCategoria,
   deleteArtigo,
-  deleteCategoria
+  deleteCategoria,
 };
