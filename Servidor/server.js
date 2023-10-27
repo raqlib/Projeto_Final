@@ -26,8 +26,8 @@ app.get("/api/artigos/nome/:nome", sqlUtils.getArtigosPorNome);
 app.get("/api/categorias", sqlUtils.getCategorias);
 
 // Update Routes
-app.post("/api/artigo/update", sqlUtils.updateArtigo);
-app.post("/api/categoria/update", sqlUtils.updateCategoria);
+app.put("/api/artigo/update/:id", sqlUtils.updateArtigo);
+app.put("/api/categoria/update/:id", sqlUtils.updateCategoria);
 
 // Delete Routes
 app.delete("/api/artigo/delete/:id", sqlUtils.deleteArtigo);

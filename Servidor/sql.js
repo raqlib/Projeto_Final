@@ -89,22 +89,18 @@ const getCategorias = (req, res) => {
 };
 
 const updateArtigo = (req, res) => {
+  const id = req.params.id;
   const body = req.body;
 
   const connection = openMySqlConnection();
 
   const queryUArtigo =
-    "UPDATE artigo SET nome = ?, id_categoria = ?, quantidade = ? WHERE id = ?;";
-  const values = [
-    [body.nome],
-    [body.id_categoria],
-    [body.quantidade],
-    [body.id],
-  ];
+    "UPDATE artigo SET nome = ?, id_categoria = ?, quantidade = ? WHERE id_artigo = ?;";
+  const values = [[body.nome], [body.id_categoria], [body.quantidade], [id]];
 
   connection.query(queryUArtigo, values, (err, result) => {
     if (err) res.json(err);
-    res.send("Artigo com o Id: " + body.id + " atualizado com sucesso!");
+    res.send("Artigo com o Id: " + id + " atualizado com sucesso!");
 
     console.log(
       "Close connection to MySql database: " + connection.config.database
@@ -113,11 +109,30 @@ const updateArtigo = (req, res) => {
   });
 };
 
-const updateCategoria = () => {}; //REPRODUZIR O updateCategoria
+const updateCategoria = (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
+  const connection = openMySqlConnection();
+
+  const queryUCategoria =
+    "UPDATE categoria SET tipo = ? WHERE id_categoria = ?;";
+  const values = [[body.tipo], [id]];
+
+  connection.query(queryUCategoria, values, (err, result) => {
+    if (err) res.json(err);
+    res.send("Categoria com o Id: " + id + " atualizada com sucesso!");
+
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
 
 const deleteArtigo = (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   const connection = openMySqlConnection();
 
   const queryDArtigo = "DELETE FROM artigo WHERE id_artigo = ?;";
@@ -133,7 +148,24 @@ const deleteArtigo = (req, res) => {
   });
 };
 
-const deleteCategoria = () => {}; //REPRODUZIR O deleteArtigo
+//DeleteCategoria dá erro por causa da FK, teria de alterar todos os artigos com est categoria, procedimento!!!
+const deleteCategoria = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const connection = openMySqlConnection();
+
+  const queryDCategoria = "DELETE FROM categoria WHERE id_categoria = ?;";
+
+  connection.query(queryDCategoria, id, (err, result) => {
+    if (err) res.json(err);
+    res.send("Categoria com o Id: " + id + " apagada com sucesso!");
+
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
 
 module.exports = {
   addArtigo,
