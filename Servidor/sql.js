@@ -113,10 +113,27 @@ const updateArtigo = (req, res) => {
   });
 };
 
-const updateCategoria = () => {};
+const updateCategoria = () => {}; //REPRODUZIR O updateCategoria
 
-const deleteArtigo = () => {};
-const deleteCategoria = () => {};
+const deleteArtigo = (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  const connection = openMySqlConnection();
+
+  const queryDArtigo = "DELETE FROM artigo WHERE id_artigo = ?;";
+
+  connection.query(queryDArtigo, id, (err, result) => {
+    if (err) res.json(err);
+    res.send("Artigo com o Id: " + id + " apagado com sucesso!");
+
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
+
+const deleteCategoria = () => {}; //REPRODUZIR O deleteArtigo
 
 module.exports = {
   addArtigo,

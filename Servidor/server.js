@@ -30,8 +30,8 @@ app.post("/api/artigo/update", sqlUtils.updateArtigo);
 app.post("/api/categoria/update", sqlUtils.updateCategoria);
 
 // Delete Routes
-app.post("/api/artigo/delete", sqlUtils.deleteArtigo);
-app.post("/api/categoria/delete", sqlUtils.deleteCategoria);
+app.delete("/api/artigo/delete/:id", sqlUtils.deleteArtigo);
+app.delete("/api/categoria/delete/:id", sqlUtils.deleteCategoria);
 
 app.listen(port, () => {
   console.log(
