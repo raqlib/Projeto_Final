@@ -151,10 +151,11 @@ const deleteArtigo = (req, res) => {
 //DeleteCategoria dá erro por causa da FK, teria de alterar todos os artigos com est categoria, procedimento!!!
 const deleteCategoria = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const connection = openMySqlConnection();
 
-  const queryDCategoria = "DELETE FROM categoria WHERE id_categoria = ?;";
+  const queryDCategoria = "CALL apagarCategoria(?);";
+
+  // const queryDCategoria = "DELETE FROM categoria WHERE id_categoria = ?;";
 
   connection.query(queryDCategoria, id, (err, result) => {
     if (err) res.json(err);
