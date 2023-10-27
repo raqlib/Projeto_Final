@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Out-2023 às 13:18
+-- Tempo de geração: 27-Out-2023 às 17:55
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -21,6 +21,15 @@ SET time_zone = "+00:00";
 -- Banco de dados: `inventory_tracking`
 --
 
+DELIMITER $$
+--
+-- Procedimentos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `apagarCategoria` (IN `in_id_categoria` INT)   BEGIN    UPDATE artigo SET id_categoria = null WHERE id_categoria = in_id_categoria;     DELETE FROM categoria WHERE id_categoria = in_id_categoria;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -33,6 +42,13 @@ CREATE TABLE `artigo` (
   `quantidade` int(11) DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `artigo`
+--
+
+INSERT INTO `artigo` (`id_artigo`, `nome`, `quantidade`, `id_categoria`) VALUES
+(1, 'bola', 23, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,13 +86,13 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `artigo`
 --
 ALTER TABLE `artigo`
-  MODIFY `id_artigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_artigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
