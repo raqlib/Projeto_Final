@@ -7,6 +7,46 @@
 	},
 	"item": [
 		{
+			"name": "getArtigos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/artigos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"artigos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "addArtigo",
 			"request": {
 				"method": "POST",
@@ -67,12 +107,21 @@
 			"response": []
 		},
 		{
-			"name": "getArtigos",
+			"name": "updateArtigo",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Cestos\",\r\n    \"id_categoria\": 1,\r\n    \"quantidade\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000/api/artigos",
+					"raw": "http://localhost:3000/api/artigo/update/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -80,19 +129,30 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"artigos"
+						"artigo",
+						"update",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "getCategorias",
+			"name": "updateCategoria",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipo\": \"Musica\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000/api/categorias",
+					"raw": "http://localhost:3000/api/categoria/update/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -100,7 +160,53 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"categorias"
+						"categoria",
+						"update",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteArtigo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/artigo/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"artigo",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCategoria",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/categoria/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categoria",
+						"delete",
+						"1"
 					]
 				}
 			},
