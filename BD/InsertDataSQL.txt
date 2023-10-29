@@ -1,0 +1,134 @@
+-- Inserir 10 categorias
+INSERT INTO categoria (item) VALUES
+('Eletronicos'),
+('Roupas'),
+('Livros'),
+('Acessorios'),
+('Moveis'),
+('Alimentos'),
+('Beleza'),
+('Esportes'),
+('Jogos'),
+('Ferramentas');
+
+-- Inserir 100 artigos associados a essas categorias (cada categoria terá 10 artigos)
+INSERT INTO artigo (nome, id_categoria, quantidade) VALUES
+-- Categoria 1 - Eletrônicos
+('Smartphone', 1, 50),
+('Smartwatch', 1, 30),
+('Notebook', 1, 20),
+('Fone de Ouvido', 1, 40),
+('Tablet', 1, 25),
+('Camera', 1, 15),
+('TV', 1, 10),
+('Impressora', 1, 35),
+('Console de Videogame', 1, 45),
+('Carregador Portatil', 1, 60),
+
+-- Categoria 2 - Roupas
+('Camiseta', 2, 100),
+('Calca Jeans', 2, 80),
+('Vestido', 2, 70),
+('Tenis', 2, 90),
+('Jaqueta', 2, 60),
+('Blusa', 2, 110),
+('Bermuda', 2, 75),
+('Sapato Social', 2, 85),
+('Saia', 2, 65),
+('Moletom', 2, 55),
+
+-- Categoria 3 - Livros
+('Livro', 3, 40),
+('Revista', 3, 60),
+('HQ', 3, 30),
+('Dicionario', 3, 25),
+('Romance', 3, 50),
+('Poesia', 3, 35),
+('Ficcao Cientifica', 3, 45),
+('Aventura', 3, 55),
+('Biografia', 3, 20),
+('Ebook', 3, 70),
+
+-- Categoria 4 - Acessórios
+('Oculos de Sol', 4, 65),
+('Bolsa', 4, 80),
+('Relogio', 4, 50),
+('Chapeu', 4, 40),
+('Colar', 4, 75),
+('Pulseira', 4, 60),
+('Cinto', 4, 55),
+('Brinco', 4, 45),
+('Gravata', 4, 35),
+('Anel', 4, 70),
+
+-- Categoria 5 - Móveis
+('Sofa', 5, 25),
+('Mesa', 5, 40),
+('Cadeira', 5, 60),
+('Guarda-Roupa', 5, 30),
+('Escrivaninha', 5, 45),
+('Cama', 5, 50),
+('Criado-Mudo', 5, 35),
+('Estante', 5, 55),
+('Poltrona', 5, 20),
+('Mesa de Centro', 5, 65),
+
+-- Categoria 6 - Alimentos
+('Arroz', 6, 70),
+('Feijao', 6, 85),
+('Macarrao', 6, 60),
+('Azeite', 6, 40),
+('Sal', 6, 75),
+('Acucar', 6, 50),
+('Cafe', 6, 55),
+('Farinha', 6, 65),
+('Leite', 6, 45),
+('Ovos', 6, 80),
+
+-- Categoria 7 - Beleza
+('Shampoo', 7, 40),
+('Condicionador', 7, 35),
+('Sabonete', 7, 50),
+('Creme Facial', 7, 60),
+('Perfume', 7, 45),
+('Maquiagem', 7, 55),
+('Hidratante', 7, 65),
+('Esfoliante', 7, 30),
+('Removedor de Maquiagem', 7, 70),
+('Tintura de Cabelo', 7, 25),
+
+-- Categoria 8 - Esportes
+('Bola', 8, 50),
+('Raquete', 8, 45),
+('Luvas de Boxe', 8, 40),
+('Caneleira', 8, 55),
+('Bicicleta', 8, 65),
+('Skate', 8, 35),
+('Taco de Baseball', 8, 30),
+('Rede de Vôlei', 8, 60),
+('Prancha de Surf', 8, 70),
+('Halteres', 8, 25),
+
+-- Categoria 9 - Jogos
+('Quebra-Cabeca', 9, 35),
+('Dama', 9, 40),
+('Baralho', 9, 30),
+('Xadrez', 9, 25),
+('Dominó', 9, 50),
+('Uno', 9, 55),
+('Ludo', 9, 45),
+('Detetive', 9, 60),
+('Banco Imobiliario', 9, 65),
+('War', 9, 70),
+
+-- Categoria 10 - Ferramentas
+('Martelo', 10, 50),
+('Chave de Fenda', 10, 60),
+('Serra', 10, 40),
+('Parafuso', 10, 35),
+('Broca', 10, 55),
+('Serrote', 10, 45),
+('Alicate', 10, 65),
+('Nivel', 10, 30),
+('Trena', 10, 70),
+('Prego', 10, 25);
