@@ -21,6 +21,7 @@ app.post("/api/categoria/add", sqlUtils.addACategoria);
 
 // Read Routes
 app.get("/api/artigos", sqlUtils.getArtigos);
+app.get("/api/artigo/:id", sqlUtils.getArtigoPorId);
 app.get("/api/artigos/categoria/:idCategoria", sqlUtils.getArtigosPorCategoria);
 app.get("/api/artigos/nome/:nome", sqlUtils.getArtigosPorNome);
 app.get("/api/categorias", sqlUtils.getCategorias);

@@ -57,12 +57,35 @@ const addACategoria = (req, res) => {
 
 const getArtigos = (req, res) => {
   const connection = openMySqlConnection();
-  const querySArtigos = "SELECT * FROM artigo;";
+  const querySArtigos =
+    "SELECT * FROM artigo LEFT JOIN categoria ON artigo.id_categoria = categoria.id_categoria;";
   connection.query(querySArtigos, (err, result) => {
-    if (err) res.json(err);
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
 
-    res.json(result);
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
 
+const getArtigoPorId = (req, res) => {
+  const id = req.params.id;
+
+  const connection = openMySqlConnection();
+
+  const querySArtigo = "SELECT * FROM artigo WHERE id_artigo = ?;";
+
+  connection.query(querySArtigo, id, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -77,9 +100,11 @@ const getCategorias = (req, res) => {
   const connection = openMySqlConnection();
   const querySCategorias = "SELECT * FROM categoria;";
   connection.query(querySCategorias, (err, result) => {
-    if (err) res.json(err);
-
-    res.json(result);
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
 
     console.log(
       "Close connection to MySql database: " + connection.config.database
@@ -91,7 +116,6 @@ const getCategorias = (req, res) => {
 const updateArtigo = (req, res) => {
   const id = req.params.id;
   const body = req.body;
-
   const connection = openMySqlConnection();
 
   const queryUArtigo =
@@ -99,9 +123,14 @@ const updateArtigo = (req, res) => {
   const values = [[body.nome], [body.id_categoria], [body.quantidade], [id]];
 
   connection.query(queryUArtigo, values, (err, result) => {
-    if (err) res.json(err);
-    res.send("Artigo com o Id: " + id + " atualizado com sucesso!");
-
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Artigo atualizado com sucesso",
+        resourceId: id,
+      });
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -120,9 +149,14 @@ const updateCategoria = (req, res) => {
   const values = [[body.tipo], [id]];
 
   connection.query(queryUCategoria, values, (err, result) => {
-    if (err) res.json(err);
-    res.send("Categoria com o Id: " + id + " atualizada com sucesso!");
-
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Categoria atualizada com sucesso",
+        resourceId: id,
+      });
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -138,8 +172,14 @@ const deleteArtigo = (req, res) => {
   const queryDArtigo = "DELETE FROM artigo WHERE id_artigo = ?;";
 
   connection.query(queryDArtigo, id, (err, result) => {
-    if (err) res.json(err);
-    res.send("Artigo com o Id: " + id + " apagado com sucesso!");
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Artigo apagado com sucesso!",
+        resourceId: id,
+      });
+    }
 
     console.log(
       "Close connection to MySql database: " + connection.config.database
@@ -148,18 +188,21 @@ const deleteArtigo = (req, res) => {
   });
 };
 
-//DeleteCategoria dá erro por causa da FK, teria de alterar todos os artigos com est categoria, procedimento!!!
 const deleteCategoria = (req, res) => {
   const id = req.params.id;
   const connection = openMySqlConnection();
 
   const queryDCategoria = "CALL apagarCategoria(?);";
 
-  // const queryDCategoria = "DELETE FROM categoria WHERE id_categoria = ?;";
-
   connection.query(queryDCategoria, id, (err, result) => {
-    if (err) res.json(err);
-    res.send("Categoria com o Id: " + id + " apagada com sucesso!");
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Categoria apagada com sucesso!",
+        resourceId: id,
+      });
+    }
 
     console.log(
       "Close connection to MySql database: " + connection.config.database
@@ -172,6 +215,7 @@ module.exports = {
   addArtigo,
   addACategoria,
   getArtigos,
+  getArtigoPorId,
   getArtigosPorCategoria,
   getArtigosPorNome,
   getCategorias,

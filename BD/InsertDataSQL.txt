@@ -1,5 +1,5 @@
 -- Inserir 10 categorias
-INSERT INTO categoria (item) VALUES
+INSERT INTO categoria (tipo) VALUES
 ('Eletronicos'),
 ('Roupas'),
 ('Livros'),

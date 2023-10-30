@@ -1,17 +1,19 @@
+const APIbaseURL = "http://localhost:3000";
+
 // Função para criar um novo artigo
 async function createArtigo(data) {
   try {
-    const response = await fetch('/API/Artigo/Add', {
-      method: 'POST',
+    const response = await fetch(`${APIbaseURL}/api/artigo/add`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao criar artigo:', error);
+    console.error("Erro ao criar artigo:", error);
     throw error;
   }
 }
@@ -19,31 +21,40 @@ async function createArtigo(data) {
 // Função para criar uma nova categoria
 async function createCategoria(data) {
   try {
-    const response = await fetch('/API/Categoria/Add', {
-      method: 'POST',
+    const response = await fetch(`${APIbaseURL}/api/categoria/add`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao criar categoria:', error);
+    console.error("Erro ao criar categoria:", error);
     throw error;
   }
 }
 
 // Função para buscar todos os artigos
 async function getArtigos() {
-  confirm("Tem a certeza")
   try {
-    const response = await fetch('http://localhost:3000/API/Artigos');
+    const response = await fetch(`${APIbaseURL}/api/artigos`);
     const artigos = await response.json();
-    console.log(artigos)
     return artigos;
   } catch (error) {
-    console.error('Erro ao buscar artigos:', error);
+    console.error("Erro ao buscar artigos:", error);
+    throw error;
+  }
+}
+
+async function getArtigo(id) {
+  try {
+    const response = await fetch(`${APIbaseURL}/api/artigo/${id}`);
+    const artigo = await response.json();
+    return artigo[0];
+  } catch (error) {
+    console.error("Erro ao buscar artigos:", error);
     throw error;
   }
 }
@@ -51,11 +62,11 @@ async function getArtigos() {
 // Função para buscar todas as categorias
 async function getCategorias() {
   try {
-    const response = await fetch('http://localhost:3000/API/Categorias');
+    const response = await fetch(`${APIbaseURL}/api/categorias`);
     const categorias = await response.json();
     return categorias;
   } catch (error) {
-    console.error('Erro ao buscar categorias:', error);
+    console.error("Erro ao buscar categorias:", error);
     throw error;
   }
 }
@@ -63,17 +74,17 @@ async function getCategorias() {
 // Função para atualizar um artigo
 async function updateArtigo(id, data) {
   try {
-    const response = await fetch(`/API/Artigo/update/${id}`, {
-      method: 'PUT',
+    const response = await fetch(`${APIbaseURL}/api/Artigo/update/${id}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao atualizar artigo:', error);
+    console.error("Erro ao atualizar artigo:", error);
     throw error;
   }
 }
@@ -81,17 +92,17 @@ async function updateArtigo(id, data) {
 // Função para atualizar uma categoria
 async function updateCategoria(id, data) {
   try {
-    const response = await fetch(`/API/Categorias/update/${id}`, {
-      method: 'PUT',
+    const response = await fetch(`${APIbaseURL}/api/categoria/update/${id}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao atualizar categoria:', error);
+    console.error("Erro ao atualizar categoria:", error);
     throw error;
   }
 }
@@ -99,13 +110,13 @@ async function updateCategoria(id, data) {
 // Função para excluir um artigo
 async function deleteArtigo(id) {
   try {
-    const response = await fetch(`/API/Artigo/delete/${id}`, {
-      method: 'DELETE'
+    const response = await fetch(`${APIbaseURL}/api/artigo/delete/${id}`, {
+      method: "DELETE",
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao excluir artigo:', error);
+    console.error("Erro ao apagar artigo:", error);
     throw error;
   }
 }
@@ -113,22 +124,24 @@ async function deleteArtigo(id) {
 // Função para excluir uma categoria
 async function deleteCategoria(id) {
   try {
-    const response = await fetch(`/API/Categorias/delete/${id}`, {
-      method: 'DELETE'
+    const response = await fetch(`${APIbaseURL}/api/categoria/delete/${id}`, {
+      method: "DELETE",
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Erro ao excluir categoria:', error);
+    console.error("Erro ao excluir categoria:", error);
     throw error;
   }
-      }
+}
 
+//Funções de Manipulação do DOM
 
-function createArtigosTable(artigos) {
-  const table = document.createElement('table');
-  table.innerHTML = `
-    <thead>
+function criarTabelaArtigos(listaArtigos) {
+  const tabelaArtigos = document.createElement("table");
+  tabelaArtigos.id = "tabelaArtigos";
+  tabelaArtigos.innerHTML = `
+    <thead id="cabecalhoTabelaArtigos">
       <tr>
         <th>Nome</th>
         <th>Categoria</th>
@@ -136,84 +149,209 @@ function createArtigosTable(artigos) {
         <th>Ações</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="corpoTabelaArtigos"></tbody>
   `;
 
-  const tbody = table.querySelector('tbody');
+  const corpoTabelaArtigos = tabelaArtigos.querySelector("tbody");
 
-  artigos.forEach((artigo) => {
-    const row = document.createElement('tr');
-    row.setAttribute('data-id', artigo.id); // Adicione o atributo data-id
-    row.innerHTML = `
+  listaArtigos.forEach((artigo) => {
+    const linha = document.createElement("tr");
+    linha.setAttribute("id_artigo", artigo.id_artigo);
+    linha.innerHTML = `
       <td>${artigo.nome}</td>
-      <td>${artigo.categoria}</td>
+      <td>${artigo.tipo ? artigo.tipo : ""}</td>
       <td>${artigo.quantidade}</td>
       <td>
-        <button onclick="atualizarArtigo(${artigo.id})">Atualizar</button>
-        <button onclick="apagarArtigo(${artigo.id})">Apagar</button>
+        <button onclick="atualizarArtigo(${
+          artigo.id_artigo
+        })">Atualizar</button>
+        <button onclick="apagarArtigo(${artigo.id_artigo})">Apagar</button>
       </td>
     `;
-
-    tbody.appendChild(row);
+    corpoTabelaArtigos.appendChild(linha);
   });
 
-  return table;
+  return tabelaArtigos;
 }
 
-// const tabelaContainer = document.getElementById('tabela-container');
-// tabelaContainer.appendChild(createArtigosTable(artigosArray));
+async function adicionarTabelaArtigosDOM() {
+  const listaArtigos = await getArtigos();
+  const tabelaArtigosContainer = document.getElementById(
+    "tabelaArtigosContainer"
+  );
+  tabelaArtigosContainer.innerHTML = "";
+  if (listaArtigos.length == 0) {
+    tabelaArtigosContainer.appendChild(`
+    <p>Não existem artigos no inventário</p>
+    `);
+  } else {
+    tabelaArtigosContainer.appendChild(criarTabelaArtigos(listaArtigos));
+  }
+}
 
-function atualizarArtigo(id) {
-  // Encontre a linha da tabela correspondente ao artigo que deseja atualizar
-  const row = document.querySelector(`tr[data-id="${id}"]`);
-
-  // Crie um formulário de atualização
-  const form = document.createElement('form');
-  form.innerHTML = `
-    <input type="text" name="nome" placeholder="Novo Nome">
-    <input type="text" name="categoria" placeholder="Nova Categoria">
-    <input type="number" name="quantidade" placeholder="Nova Quantidade">
-    <button type="submit">Salvar</button>
+function criarTabelaCategorias(listaCategorias) {
+  const tabelaCategorias = document.createElement("table");
+  tabelaCategorias.id = "tabelaCategorias";
+  tabelaCategorias.innerHTML = `
+    <thead id="cabecalhoTabelaCategorias">
+      <tr>
+        <th>Tipo</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="corpoTabelaCategorias"></tbody>
   `;
 
-  // Manipule o envio do formulário para atualizar o artigo
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const nome = formData.get('nome');
-    const categoria = formData.get('categoria');
-    const quantidade = formData.get('quantidade');
+  const corpoTabelaCategorias = tabelaCategorias.querySelector("tbody");
 
-    // Envie uma solicitação para a rota de atualização do artigo com os novos dados
-    const response = await fetch(`/API/Artigo/update/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ nome, categoria, quantidade })
-    });
-
-    if (response.ok) {
-      // Atualização bem-sucedida, atualize a linha na tabela
-      const updatedArtigo = await response.json();
-      row.innerHTML = `
-        <td>${updatedArtigo.nome}</td>
-        <td>${updatedArtigo.categoria}</td>
-        <td>${updatedArtigo.quantidade}</td>
-        <td>
-          <button onclick="atualizarArtigo(${updatedArtigo.id})">Atualizar</button>
-          <button onclick="apagarArtigo(${updatedArtigo.id})">Apagar</button>
-        </td>
-      `;
-
-      // Remova o formulário
-      form.remove();
-    } else {
-      console.error('Erro na atualização do artigo');
-    }
+  listaCategorias.forEach((categoria) => {
+    const linha = document.createElement("tr");
+    linha.setAttribute("id_categoria", categoria.id_categoria);
+    linha.innerHTML = `
+      <td>${categoria.tipo}</td>
+      <td>
+        <button onclick="atualizarCategoria(${categoria.id_categoria})">Atualizar</button>
+        <button onclick="apagarCategoria(${categoria.id_categoria})">Apagar</button>
+      </td>
+    `;
+    corpoTabelaCategorias.appendChild(linha);
   });
 
-  // Adicione o formulário logo abaixo da linha do artigo
-  row.parentNode.insertBefore(form, row.nextSibling);
+  return tabelaCategorias;
 }
 
+async function adicionarTabelaCategoriasDOM() {
+  const listaCategorias = await getCategorias();
+  const tabelaCategoriasContainer = document.getElementById(
+    "tabelaCategoriasContainer"
+  );
+  tabelaCategoriasContainer.innerHTML = "";
+
+  if (listaCategorias.length == 0) {
+    tabelaCategoriasContainer.innerHTML = `
+    <p>Não existem categorias no inventário</p>
+    `;
+  } else {
+    tabelaCategoriasContainer.appendChild(
+      criarTabelaCategorias(listaCategorias)
+    );
+  }
+}
+
+adicionarTabelaArtigosDOM();
+adicionarTabelaCategoriasDOM();
+
+async function atualizarArtigo(id) {
+  const artigoAtual = await getArtigo(id);
+  console.log(artigoAtual);
+  const dialog = document.getElementById("dialog");
+
+  dialog.innerHTML = `
+      <h2>Atualizar Artigo</h2>
+      <form>
+        <input type="text" name="nome" value="${artigoAtual.nome}">
+        <select name="categoria">
+        </select>
+        <input type="number" name="quantidade" value="${artigoAtual.quantidade}">
+        <button type="submit">Submeter Atualização</button>
+      </form>
+      <button onclick="dialog.close()">Cancelar</button>
+`;
+
+  const listaCategorias = await getCategorias();
+  const optionSemCategoria = document.createElement("option");
+  optionSemCategoria.value = null;
+  optionSemCategoria.textContent = "Sem Categoria";
+  dialog.querySelector("select").appendChild(optionSemCategoria);
+  listaCategorias.forEach((categoria) => {
+    const option = document.createElement("option");
+    option.value = categoria.id_categoria;
+    option.textContent = categoria.tipo;
+    if (categoria.id_categoria === artigoAtual.id_categoria) {
+      option.selected = true;
+    }
+    dialog.querySelector("select").appendChild(option);
+  });
+
+  dialog.showModal();
+
+  dialog.querySelector("form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(dialog.querySelector("form"));
+    const nome = formData.get("nome");
+    const id_categoria =
+      formData.get("categoria") === "null" ? null : formData.get("categoria");
+    const quantidade = formData.get("quantidade");
+
+    const data = {
+      nome: nome,
+      id_categoria: id_categoria,
+      quantidade: quantidade,
+    };
+    console.log(data);
+    const response = await updateArtigo(id, data);
+    if (response.message) {
+      alert(response.message);
+      dialog.close();
+      location.reload();
+    } else {
+      alert("Erro na atualização do artigo, tente novamente!");
+      dialog.close();
+    }
+  });
+}
+
+async function atualizarCategoria(id) {
+  const dialog = document.getElementById("dialog");
+
+  dialog.innerHTML = `
+      <h2>Atualizar Categoria</h2>
+      <form>
+        <input type="text" name="tipo" value="2" placeholder="Novo Tipo">
+        <button type="submit">Submeter Atualização</button>
+      </form>
+      <button onclick="dialog.close()">Cancelar</button>
+`;
+
+  dialog.showModal();
+
+  dialog.querySelector("form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(dialog.querySelector("form"));
+    const tipo = formData.get("tipo");
+
+    const data = {
+      tipo: tipo,
+    };
+
+    const response = await updateCategoria(id, data);
+    if (response.message) {
+      alert(response.message);
+      dialog.close();
+      location.reload();
+    } else {
+      alert("Erro na atualização da categoria, tente novamente!");
+      dialog.close();
+    }
+  });
+}
+
+async function apagarArtigo(id) {
+  const response = await deleteArtigo(id);
+  if (response.message) {
+    alert(response.message);
+    location.reload();
+  } else {
+    alert("Erro ao apagar o artigo, tente novamente!");
+  }
+}
+
+async function apagarCategoria(id) {
+  const response = await deleteCategoria(id);
+  if (response.message) {
+    alert(response.message);
+    location.reload();
+  } else {
+    alert("Erro ao apagar a categoria, tente novamente!");
+  }
+}
