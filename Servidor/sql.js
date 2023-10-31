@@ -18,7 +18,9 @@ const openMySqlConnection = () => {
 
 const addArtigo = (req, res) => {
   const body = req.body;
-  const values = [[body.nome, body.id_categoria, body.quantidade, body.datainsercao]];
+  const values = [
+    [body.nome, body.id_categoria, body.quantidade, body.datainsercao],
+  ];
 
   const connection = openMySqlConnection();
   const queryIArtigo =
@@ -192,22 +194,29 @@ const deleteCategoria = (req, res) => {
   const id = req.params.id;
   const connection = openMySqlConnection();
 
-  const queryDCategoria = "CALL apagarCategoria(?);";
+  const queryUArtigos =
+    "UPDATE artigo SET id_categoria = null WHERE id_categoria = ?;";
+  const queryDCategoria = "DELETE FROM categoria WHERE id_categoria = ?;";
 
-  connection.query(queryDCategoria, id, (err, result) => {
+  connection.query(queryUArtigos, id, (err, result) => {
     if (err) {
       res.json(err);
     } else {
-      res.json({
-        message: "Categoria apagada com sucesso!",
-        resourceId: id,
+      connection.query(queryDCategoria, id, (err, result) => {
+        if (err) {
+          res.json(err);
+        } else {
+          res.json({
+            message: "Categoria apagada com sucesso!",
+            resourceId: id,
+          });
+        }
+        console.log(
+          "Close connection to MySql database: " + connection.config.database
+        );
+        connection.end();
       });
     }
-
-    console.log(
-      "Close connection to MySql database: " + connection.config.database
-    );
-    connection.end();
   });
 };
 
