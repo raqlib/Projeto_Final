@@ -1,4 +1,8 @@
+// Scripts JavaScript Fetch API
+
 const APIbaseURL = "http://localhost:3000";
+
+// CREATE FETCHS *************************************************************
 
 // Função para criar um novo artigo
 async function createArtigo(data) {
@@ -36,6 +40,8 @@ async function createCategoria(data) {
   }
 }
 
+// READ FETCHS *************************************************************
+
 // Função para buscar todos os artigos
 async function getArtigos() {
   try {
@@ -48,6 +54,7 @@ async function getArtigos() {
   }
 }
 
+// Função para buscar um artigo
 async function getArtigo(id) {
   try {
     const response = await fetch(`${APIbaseURL}/api/artigo/${id}`);
@@ -70,6 +77,8 @@ async function getCategorias() {
     throw error;
   }
 }
+
+// UPDATE FETCHS *************************************************************
 
 // Função para atualizar um artigo
 async function updateArtigo(id, data) {
@@ -107,6 +116,8 @@ async function updateCategoria(id, data) {
   }
 }
 
+// DELETE FETCHS *************************************************************
+
 // Função para excluir um artigo
 async function deleteArtigo(id) {
   try {
@@ -135,22 +146,27 @@ async function deleteCategoria(id) {
   }
 }
 
-//Funções de Manipulação do DOM
+// Scripts JavaScript Manipulação DOM
 
+// Funções Criação das Tabelas *************************************************************
+
+//Função para Criar a Tabela de Artigos
 function criarTabelaArtigos(listaArtigos) {
   const tabelaArtigos = document.createElement("table");
   tabelaArtigos.id = "tabelaArtigos";
+  tabelaArtigos.classList.add("table");
+  tabelaArtigos.classList.add("table-striped");
   tabelaArtigos.innerHTML = `
-    <thead id="cabecalhoTabelaArtigos">
-      <tr>
-        <th>Nome</th>
-        <th>Categoria</th>
-        <th>Quantidade</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="corpoTabelaArtigos"></tbody>
-  `;
+        <thead id="cabecalhoTabelaArtigos">
+          <tr>
+            <th scope="col" class="text-center">Nome</th>
+            <th scope="col" class="text-center">Categoria</th>
+            <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabelaArtigos"></tbody>
+      `;
 
   const corpoTabelaArtigos = tabelaArtigos.querySelector("tbody");
 
@@ -158,22 +174,64 @@ function criarTabelaArtigos(listaArtigos) {
     const linha = document.createElement("tr");
     linha.setAttribute("id_artigo", artigo.id_artigo);
     linha.innerHTML = `
-      <td>${artigo.nome}</td>
-      <td>${artigo.tipo ? artigo.tipo : ""}</td>
-      <td>${artigo.quantidade}</td>
-      <td>
-        <button onclick="atualizarArtigo('${artigo.id_artigo}','${
-      artigo.nome
-    }','${artigo.quantidade}','${artigo.id_categoria}')">Atualizar</button>
-        <button onclick="apagarArtigo('${artigo.id_artigo}')">Apagar</button>
-      </td>
-    `;
+          <td>${artigo.nome}</td>
+          <td class="text-center">${artigo.tipo ? artigo.tipo : ""}</td>
+          <td class="text-center">${artigo.quantidade}</td>
+          <td class="text-center">
+            <button class="btn btn-outline-success p-1" onclick="atualizarArtigo('${
+              artigo.id_artigo
+            }','${artigo.nome}','${artigo.quantidade}','${
+      artigo.id_categoria
+    }')">Atualizar</button>
+            <button class="btn btn-outline-danger p-1" onclick="apagarArtigo('${
+              artigo.id_artigo
+            }')">Apagar</button>
+          </td>
+        `;
     corpoTabelaArtigos.appendChild(linha);
   });
 
   return tabelaArtigos;
 }
 
+//Função para Criar a Tabela de Categorias
+function criarTabelaCategorias(listaCategorias) {
+  const tabelaCategorias = document.createElement("table");
+  tabelaCategorias.id = "tabelaCategorias";
+  tabelaCategorias.classList.add("table");
+  tabelaCategorias.classList.add("table-striped");
+
+  tabelaCategorias.innerHTML = `
+        <thead id="cabecalhoTabelaCategorias">
+          <tr>
+            <th scope="col" class="text-center">Tipo</th>
+            <th scope="col" class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabelaCategorias"></tbody>
+      `;
+
+  const corpoTabelaCategorias = tabelaCategorias.querySelector("tbody");
+
+  listaCategorias.forEach((categoria) => {
+    const linha = document.createElement("tr");
+    linha.setAttribute("id_categoria", categoria.id_categoria);
+    linha.innerHTML = `
+          <td class="text-center">${categoria.tipo}</td>
+          <td class="text-center">
+            <button class="btn btn-outline-success p-1" onclick="atualizarCategoria('${categoria.id_categoria}','${categoria.tipo}')">Atualizar</button>
+            <button class="btn btn-outline-danger p-1" onclick="apagarCategoria('${categoria.id_categoria}')">Apagar</button>
+          </td>
+        `;
+    corpoTabelaCategorias.appendChild(linha);
+  });
+
+  return tabelaCategorias;
+}
+
+// Funções Adicionar Tabelas ao DOM *************************************************************
+
+//Função para Adicionar a Tabela de Categorias ao DOM
 async function adicionarTabelaArtigosDOM() {
   const listaArtigos = await getArtigos();
 
@@ -207,8 +265,8 @@ async function adicionarTabelaArtigosDOM() {
 
   if (listaArtigosFiltrados.length == 0) {
     tabelaArtigosContainer.innerHTML = `
-    <p>Não existem artigos no inventário</p>
-    `;
+        <p>Não existem artigos no inventário</p>
+        `;
   } else {
     tabelaArtigosContainer.appendChild(
       criarTabelaArtigos(listaArtigosFiltrados)
@@ -216,37 +274,7 @@ async function adicionarTabelaArtigosDOM() {
   }
 }
 
-function criarTabelaCategorias(listaCategorias) {
-  const tabelaCategorias = document.createElement("table");
-  tabelaCategorias.id = "tabelaCategorias";
-  tabelaCategorias.innerHTML = `
-    <thead id="cabecalhoTabelaCategorias">
-      <tr>
-        <th>Tipo</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="corpoTabelaCategorias"></tbody>
-  `;
-
-  const corpoTabelaCategorias = tabelaCategorias.querySelector("tbody");
-
-  listaCategorias.forEach((categoria) => {
-    const linha = document.createElement("tr");
-    linha.setAttribute("id_categoria", categoria.id_categoria);
-    linha.innerHTML = `
-      <td>${categoria.tipo}</td>
-      <td>
-        <button onclick="atualizarCategoria('${categoria.id_categoria}','${categoria.tipo}')">Atualizar</button>
-        <button onclick="apagarCategoria('${categoria.id_categoria}')">Apagar</button>
-      </td>
-    `;
-    corpoTabelaCategorias.appendChild(linha);
-  });
-
-  return tabelaCategorias;
-}
-
+//Função para Adicionar a Tabela de Artigos ao DOM
 async function adicionarTabelaCategoriasDOM() {
   const listaCategorias = await getCategorias();
   const tabelaCategoriasContainer = document.getElementById(
@@ -256,8 +284,8 @@ async function adicionarTabelaCategoriasDOM() {
 
   if (listaCategorias.length == 0) {
     tabelaCategoriasContainer.innerHTML = `
-    <p>Não existem categorias no inventário</p>
-    `;
+        <p>Não existem categorias no inventário</p>
+        `;
   } else {
     tabelaCategoriasContainer.appendChild(
       criarTabelaCategorias(listaCategorias)
@@ -265,20 +293,23 @@ async function adicionarTabelaCategoriasDOM() {
   }
 }
 
+// Funções Botões das Ações Atualizar e Apagar *************************************************************
+
+//Função para Atualizar um Artigo
 async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
   const linhaArtigo = document.querySelector(`tr[id_artigo="${id_artigo}"]`);
   const dialog = document.getElementById("dialog");
   dialog.innerHTML = `
-      <h2>Atualizar Artigo</h2>
-      <form>
-        <input type="text" name="nome" value="${nome}">
-        <select name="categoria">
-        </select>
-        <input type="number" name="quantidade" value="${quantidade}">
-        <button type="submit">Submeter Atualização</button>
-      </form>
-      <button onclick="dialog.close()">Cancelar</button>
-`;
+          <h2>Atualizar Artigo</h2>
+          <form>
+            <input type="text" name="nome" value="${nome}">
+            <select name="categoria">
+            </select>
+            <input type="number" name="quantidade" value="${quantidade}">
+            <button type="submit">Submeter Atualização</button>
+          </form>
+          <button onclick="dialog.close()">Cancelar</button>
+    `;
 
   const listaCategorias = await getCategorias();
   const optionSemCategoria = document.createElement("option");
@@ -319,14 +350,14 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
       const artigoAtualizado = await getArtigo(id_artigo);
 
       linhaArtigo.innerHTML = `
-      <td>${artigoAtualizado.nome}</td>
-      <td>${artigoAtualizado.categoria}</td>
-      <td>${artigoAtualizado.quantidade}</td>
-      <td>
-      <button onclick="atualizarArtigo('${id_artigo}','${artigoAtualizado.nome}','${artigoAtualizado.quantidade}','${artigoAtualizado.id_categoria}')">Atualizar</button>
-      <button onclick="apagarArtigo('${id_artigo}')">Apagar</button>
-    </td>
-    `;
+          <td>${artigoAtualizado.nome}</td>
+          <td>${artigoAtualizado.categoria}</td>
+          <td>${artigoAtualizado.quantidade}</td>
+          <td>
+          <button onclick="atualizarArtigo('${id_artigo}','${artigoAtualizado.nome}','${artigoAtualizado.quantidade}','${artigoAtualizado.id_categoria}')">Atualizar</button>
+          <button onclick="apagarArtigo('${id_artigo}')">Apagar</button>
+        </td>
+        `;
     } else {
       alert("Erro na atualização do artigo, tente novamente!");
       dialog.close();
@@ -334,6 +365,7 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
   });
 }
 
+//Função para Atualizar uma Categoria
 async function atualizarCategoria(id_categoria, tipo_categoria) {
   const linhaCategoria = document.querySelector(
     `tr[id_categoria="${id_categoria}"]`
@@ -341,13 +373,13 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
   const dialog = document.getElementById("dialog");
 
   dialog.innerHTML = `
-      <h2>Atualizar Categoria</h2>
-      <form>
-        <input type="text" name="tipo" value="${tipo_categoria}">
-        <button type="submit">Submeter Atualização</button>
-      </form>
-      <button onclick="dialog.close()">Cancelar</button>
-`;
+          <h2>Atualizar Categoria</h2>
+          <form>
+            <input type="text" name="tipo" value="${tipo_categoria}">
+            <button type="submit">Submeter Atualização</button>
+          </form>
+          <button onclick="dialog.close()">Cancelar</button>
+    `;
 
   dialog.showModal();
 
@@ -365,16 +397,16 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
       alert(response.message);
       dialog.close();
       linhaCategoria.innerHTML = `
-      <td>${tipo}</td>
-      <td>
-        <button onclick="atualizarCategoria('${id_categoria}','${tipo}')">
-          Atualizar
-        </button>
-        <button onclick="apagarCategoria('${id_categoria}')">
-          Apagar
-        </button>
-      </td>
-      `;
+          <td>${tipo}</td>
+          <td>
+            <button onclick="atualizarCategoria('${id_categoria}','${tipo}')">
+              Atualizar
+            </button>
+            <button onclick="apagarCategoria('${id_categoria}')">
+              Apagar
+            </button>
+          </td>
+          `;
     } else {
       alert("Erro na atualização da categoria, tente novamente!");
       dialog.close();
@@ -382,6 +414,7 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
   });
 }
 
+// Função para Apagar um Artigo
 async function apagarArtigo(id) {
   if (confirm("Tem a certeza que deseja apagar o artigo?")) {
     const response = await deleteArtigo(id);
@@ -394,6 +427,7 @@ async function apagarArtigo(id) {
   }
 }
 
+// Função para Apagar uma Categoria
 async function apagarCategoria(id) {
   if (confirm("Tem a certeza que deseja apagar a categoria?")) {
     const response = await deleteCategoria(id);
@@ -406,7 +440,10 @@ async function apagarCategoria(id) {
   }
 }
 
-async function selectCategoriasOptions() {
+// Outras Funções *************************************************************
+
+// Função para adicionar as opçoes de categorias ao select do form de pesquisa
+async function adicionarOpcoesCategoriasSelectForm() {
   const selectCategorias = document.getElementById("selectCategorias");
   const listaCategorias = await getCategorias();
 
@@ -432,18 +469,40 @@ async function selectCategoriasOptions() {
   };
 }
 
+// Função para a pesquisa por nome e atuliazar a tabela de artigos
 function pesquisaPorNome(event) {
   event.preventDefault();
   adicionarTabelaArtigosDOM();
 }
 
+// Função para fazer o reset à pesquisa por nome e pesquisa por categoria e atualizar a tabela de artigos
 function resetPesquisaPorNome(event) {
   event.preventDefault();
+  const selectCategorias = document.getElementById("selectCategorias");
+  selectCategorias.value = -1;
   const pesquisaNome = document.getElementById("pesquisaNome");
   pesquisaNome.value = "";
   adicionarTabelaArtigosDOM();
 }
 
-selectCategoriasOptions();
-adicionarTabelaArtigosDOM();
-adicionarTabelaCategoriasDOM();
+// Chamada de Funções Inicial *************************************************************
+const currentPath =
+  location.pathname.split("/")[location.pathname.split("/").length - 1];
+console.log(currentPath);
+
+switch (currentPath) {
+  case "index.html": {
+    adicionarOpcoesCategoriasSelectForm();
+    adicionarTabelaArtigosDOM();
+    break;
+  }
+  case "artigos.html": {
+    adicionarOpcoesCategoriasSelectForm();
+    adicionarTabelaArtigosDOM();
+    break;
+  }
+  case "categorias.html": {
+    adicionarTabelaCategoriasDOM();
+    break;
+  }
+}
