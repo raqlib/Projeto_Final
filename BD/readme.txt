@@ -1,1 +1,0 @@
-Pasta para documentos da base de dados
