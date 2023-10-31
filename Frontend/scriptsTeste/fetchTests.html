@@ -7,15 +7,21 @@
     <script src="/Frontend/scriptsTeste/scripts.js" defer></script>
   </head>
   <body>
-    <h1>Butões de Teste de Fetch</h1>    
+    <h1>Botões de Teste de Fetch</h1>
     <button onclick="getArtigos()">Get Artigos</button>
     <button onclick="getCategorias()">Get Categorias</button>
 
+    <form>
+      <select name="selectCategorias" id="selectCategorias"></select>
+      <input type="text" name="pesquisaNome" id="pesquisaNome" />
+      <button onclick="pesquisaPorNome(event)">Pesquisar</button>
+      <button type="reset" onclick="resetPesquisaPorNome(event)">Limpar</button>
+    </form>
+    <hr />
     <div id="tabelaArtigosContainer"></div>
-    <hr>
+    <hr />
     <div id="tabelaCategoriasContainer"></div>
 
-    <dialog id="dialog">
-    </dialog>
+    <dialog id="dialog"></dialog>
   </body>
 </html>
