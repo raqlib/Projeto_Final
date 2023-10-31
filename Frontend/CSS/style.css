@@ -1,3 +1,21 @@
+:root {
+    --backgroundColor: rgb(224,224,224);
+    --primaryColor: #06b3e8;
+    --secondaryColor: #19dddd;
+    --shadowColor: rgba(0,0,0,0.5);
+    --primaryTextColor: #212121;
+    --secondaryTextColor: white;
+}
+
+:root[theme="dark"] {
+    --backgroundColor: #6e71ab;
+    --primaryColor: #8ecccc;
+    --secondaryColor: #93cfe1;
+    --shadowColor: rgba(255,255,255,0.5);
+    --primaryTextColor: white;
+    --secondaryTextColor: #212121;
+}
+
 body {
 
     background: linear-gradient(rgb(247, 169, 61), rgb(98, 231, 222));
@@ -7,7 +25,7 @@ header {
     padding: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
-    color: rgb(4, 4, 4);
+    color: var(--primaryColor);
 }
 
 .formulario {
@@ -41,6 +59,7 @@ header {
     border-radius: 25px 25px;
 
 }
+
 
 #tabela1 {
     text-align: center;
