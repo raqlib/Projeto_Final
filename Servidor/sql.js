@@ -80,7 +80,7 @@ const getArtigoPorId = (req, res) => {
 
   const connection = openMySqlConnection();
 
-  const querySArtigo = "SELECT * FROM artigo WHERE id_artigo = ?;";
+  const querySArtigo = "SELECT * FROM artigo JOIN categoria ON artigo.id_categoria = categoria.id_categoria WHERE id_artigo = ?;";
 
   connection.query(querySArtigo, id, (err, result) => {
     if (err) {

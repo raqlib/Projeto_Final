@@ -162,6 +162,7 @@ function criarTabelaArtigos(listaArtigos) {
             <th scope="col" class="text-center">Nome</th>
             <th scope="col" class="text-center">Categoria</th>
             <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Data de Inserção</th>
             <th scope="col" class="text-center">Ações</th>
           </tr>
         </thead>
@@ -174,10 +175,15 @@ function criarTabelaArtigos(listaArtigos) {
     const linha = document.createElement("tr");
     linha.setAttribute("id_artigo", artigo.id_artigo);
     linha.innerHTML = `
-          <td>${artigo.nome}</td>
-          <td class="text-center">${artigo.tipo ? artigo.tipo : ""}</td>
-          <td class="text-center">${artigo.quantidade}</td>
-          <td class="text-center">
+          <td class="align-middle">${artigo.nome}</td>
+          <td class="text-center align-middle">${
+            artigo.tipo ? artigo.tipo : ""
+          }</td>
+          <td class="text-center align-middle">${artigo.quantidade}</td>
+          <td class="text-center align-middle">${
+            artigo.datainsercao.split("T")[0]
+          }</td>
+          <td class="text-center align-middle">
             <button class="btn btn-outline-success p-1" onclick="atualizarArtigo('${
               artigo.id_artigo
             }','${artigo.nome}','${artigo.quantidade}','${
@@ -217,8 +223,8 @@ function criarTabelaCategorias(listaCategorias) {
     const linha = document.createElement("tr");
     linha.setAttribute("id_categoria", categoria.id_categoria);
     linha.innerHTML = `
-          <td class="text-center">${categoria.tipo}</td>
-          <td class="text-center">
+          <td class="text-center align-middle">${categoria.tipo}</td>
+          <td class="text-center align-middle">
             <button class="btn btn-outline-success p-1" onclick="atualizarCategoria('${categoria.id_categoria}','${categoria.tipo}')">Atualizar</button>
             <button class="btn btn-outline-danger p-1" onclick="apagarCategoria('${categoria.id_categoria}')">Apagar</button>
           </td>
@@ -341,7 +347,7 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
       id_categoria: id_categoria,
       quantidade: quantidade,
     };
-    console.log(data);
+
     const response = await updateArtigo(id_artigo, data);
     if (response.message) {
       alert(response.message);
@@ -350,13 +356,22 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
       const artigoAtualizado = await getArtigo(id_artigo);
 
       linhaArtigo.innerHTML = `
-          <td>${artigoAtualizado.nome}</td>
-          <td>${artigoAtualizado.categoria}</td>
-          <td>${artigoAtualizado.quantidade}</td>
-          <td>
-          <button onclick="atualizarArtigo('${id_artigo}','${artigoAtualizado.nome}','${artigoAtualizado.quantidade}','${artigoAtualizado.id_categoria}')">Atualizar</button>
-          <button onclick="apagarArtigo('${id_artigo}')">Apagar</button>
-        </td>
+          <td class="align-middle">${artigoAtualizado.nome}</td>
+          <td class="text-center align-middle">${artigoAtualizado.tipo}</td>
+          <td class="text-center align-middle">${
+            artigoAtualizado.quantidade
+          }</td>
+          <td class="text-center align-middle"${
+            artigoAtualizado.datainsercao.split("T")[0]
+          }</td>
+          <td class="text-center align-middle">
+          <button class="btn btn-outline-success p-1" onclick="atualizarArtigo('${id_artigo}','${
+        artigoAtualizado.nome
+      }','${artigoAtualizado.quantidade}','${
+        artigoAtualizado.id_categoria
+      }')">Atualizar</button>
+          <button class="btn btn-outline-danger p-1" onclick="apagarArtigo('${id_artigo}')">Apagar</button>
+          </td>
         `;
     } else {
       alert("Erro na atualização do artigo, tente novamente!");
@@ -397,12 +412,12 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
       alert(response.message);
       dialog.close();
       linhaCategoria.innerHTML = `
-          <td>${tipo}</td>
-          <td>
-            <button onclick="atualizarCategoria('${id_categoria}','${tipo}')">
+          <td class="text-center align-middle">${tipo}</td>
+          <td class="text-center align-middle">
+            <button class="btn btn-outline-success p-1" onclick="atualizarCategoria('${id_categoria}','${tipo}')">
               Atualizar
             </button>
-            <button onclick="apagarCategoria('${id_categoria}')">
+            <button class="btn btn-outline-danger p-1" onclick="apagarCategoria('${id_categoria}')">
               Apagar
             </button>
           </td>
@@ -488,7 +503,6 @@ function resetPesquisaPorNome(event) {
 // Chamada de Funções Inicial *************************************************************
 const currentPath =
   location.pathname.split("/")[location.pathname.split("/").length - 1];
-console.log(currentPath);
 
 switch (currentPath) {
   case "index.html": {

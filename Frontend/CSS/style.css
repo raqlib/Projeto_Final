@@ -1,73 +1,142 @@
-:root {
-    --backgroundColor: rgb(224,224,224);
-    --primaryColor: #06b3e8;
-    --secondaryColor: #19dddd;
-    --shadowColor: rgba(0,0,0,0.5);
-    --primaryTextColor: #212121;
-    --secondaryTextColor: white;
+:root[theme="light"] {
+  --backgroundColor: linear-gradient(rgb(247, 169, 61), rgb(98, 231, 222));
+  --primaryColor: #06b3e8;
+  --secondaryColor: #19dddd;
+  --shadowColor: rgba(0, 0, 0, 0.5);
+  --primaryTextColor: #212121;
+  --secondaryTextColor: white;
 }
 
 :root[theme="dark"] {
-    --backgroundColor: #6e71ab;
-    --primaryColor: #8ecccc;
-    --secondaryColor: #93cfe1;
-    --shadowColor: rgba(255,255,255,0.5);
-    --primaryTextColor: white;
-    --secondaryTextColor: #212121;
+  --backgroundColor: #6e71ab;
+  --primaryColor: #8ecccc;
+  --secondaryColor: #93cfe1;
+  --shadowColor: rgba(255, 255, 255, 0.5);
+  --primaryTextColor: white;
+  --secondaryTextColor: #212121;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "roboto", sans-serif;
 }
 
 body {
-
-    background: linear-gradient(rgb(247, 169, 61), rgb(98, 231, 222));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--backgroundColor);
 }
+
+/********************* CSS Header *********************/
 
 header {
-    padding: 20px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    text-align: center;
-    color: var(--primaryColor);
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  color: var(--primaryTextColor);
 }
 
+/********************* CSS Navbar *********************/
+nav {
+  width: 100%;
+  background-color: var(--primaryColor);
+}
+
+/********************* CSS Main *********************/
+main {
+  max-width: 1200px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/********************* CSS ?????? *********************/
 .formulario {
-
-    border: 3px solid rgb(241, 102, 4);
-    max-width: fit-content;
-    padding: 25px;
-    font-size: large;
-    margin-left: auto;
-    margin-right: auto;
-
+  border: 3px solid var(--secondaryColor);
+  max-width: fit-content;
+  padding: 25px;
+  font-size: large;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.imagem_inventario{
-    width: 700px;
-    height: 400px;
-    border-radius: 25px 25px;
-
+.imagem_inventario {
+  width: 700px;
+  height: 400px;
+  border-radius: 25px 25px;
 }
-.imagem_artigos{
-    width: 600px;
-    height: 350px;
-    border-radius: 25px 25px;
-
+.imagem_artigos {
+  width: 600px;
+  height: 350px;
+  border-radius: 25px 25px;
 }
 
-
-.imagem_categorias{
-    width: 600px;
-    height: 350px;
-    border-radius: 25px 25px;
-
+.imagem_categorias {
+  width: 600px;
+  height: 350px;
+  border-radius: 25px 25px;
 }
-
 
 #tabela1 {
-    text-align: center;
-    color: aliceblue;
-    background-color: rgba(255, 157, 0, 0.781);
+  text-align: center;
+  color: aliceblue;
+  background-color: rgba(255, 157, 0, 0.781);
 }
+
+/********************* CSS Footer *********************/
 
 footer {
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
+/********************* CSS Botão Mudar Tema *********************/
+#botaoMudarTema {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border: none;
+  margin-left: auto;
+  background-color: var(--secondaryColor);
+  font-size: 1rem;
+  color: var(--primaryTextColor);
+  transition: all 0.25s ease-in-out;
+  &:hover {
+    opacity: 0.8;
+    box-shadow: 0px 0px 5px 2px var(--shadowColor);
+    transform: scale(1.25);
+  }
+}
+
+/********************* CSS Voltar ao Topo *********************/
+#voltarAoTopo {
+  position: fixed;
+  z-index: 1;
+  bottom: 5rem;
+  right: 1rem;
+  align-self: flex-end;
+  border-radius: 1rem;
+  margin-bottom: 0.1rem;
+  background-color: var(--secondaryColor);
+  text-decoration: none;
+  font-size: 2.5rem;
+  color: var(--primaryTextColor);
+  transition: all 0.5s ease-in-out;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+    box-shadow: 0px 0px 5px 2px var(--shadowColor);
+  }
+}
