@@ -156,6 +156,7 @@ function criarTabelaArtigos(listaArtigos) {
   tabelaArtigos.id = "tabelaArtigos";
   tabelaArtigos.classList.add("table");
   tabelaArtigos.classList.add("table-striped");
+  tabelaArtigos.classList.add("table-hover");
   tabelaArtigos.innerHTML = `
         <thead id="cabecalhoTabelaArtigos">
           <tr>
@@ -206,7 +207,7 @@ function criarTabelaCategorias(listaCategorias) {
   tabelaCategorias.id = "tabelaCategorias";
   tabelaCategorias.classList.add("table");
   tabelaCategorias.classList.add("table-striped");
-
+  tabelaCategorias.classList.add("table-hover");
   tabelaCategorias.innerHTML = `
         <thead id="cabecalhoTabelaCategorias">
           <tr>
@@ -354,14 +355,14 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
       dialog.close();
 
       const artigoAtualizado = await getArtigo(id_artigo);
-
+      console.log(artigoAtualizado);
       linhaArtigo.innerHTML = `
           <td class="align-middle">${artigoAtualizado.nome}</td>
           <td class="text-center align-middle">${artigoAtualizado.tipo}</td>
           <td class="text-center align-middle">${
             artigoAtualizado.quantidade
           }</td>
-          <td class="text-center align-middle"${
+          <td class="text-center align-middle">${
             artigoAtualizado.datainsercao.split("T")[0]
           }</td>
           <td class="text-center align-middle">
