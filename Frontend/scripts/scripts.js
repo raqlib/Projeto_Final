@@ -242,27 +242,66 @@ function criarTabelaCategorias(listaCategorias) {
 async function adicionarTabelaArtigosDOM() {
   const listaArtigos = await getArtigos();
 
+  // Filtrar e Ordenar Lista de Artigos
   const selectCategorias = document.getElementById("selectCategorias");
   let id_categoriaSelecionada = selectCategorias.value;
+  const pesquisaNome = document.getElementById("pesquisaNome");
+  const selectOrderArtigosBy = document.getElementById("selectOrderArtigosBy");
+  let orderArtigosBy = selectOrderArtigosBy.value;
+  const selectOrderAscOrDesc = document.getElementById("selectOrderAscOrDesc");
+  let orderAscOrDesc = selectOrderAscOrDesc.value;
+  let listaArtigosFiltradosEOrdenados = [];
 
-  let listaArtigosFiltrados = [];
-
+  // Filtrar
   if (id_categoriaSelecionada == -1) {
-    listaArtigosFiltrados = listaArtigos;
+    listaArtigosFiltradosEOrdenados = listaArtigos;
   } else {
     if (id_categoriaSelecionada == 0) {
       id_categoriaSelecionada = null;
     }
-    listaArtigosFiltrados = listaArtigos.filter(
+    listaArtigosFiltradosEOrdenados = listaArtigos.filter(
       (artigo) => artigo.id_categoria == id_categoriaSelecionada
     );
   }
-
-  const pesquisaNome = document.getElementById("pesquisaNome");
   if (pesquisaNome.value) {
-    listaArtigosFiltrados = listaArtigosFiltrados.filter((artigo) =>
-      artigo.nome.toLowerCase().includes(pesquisaNome.value.toLowerCase())
+    listaArtigosFiltradosEOrdenados = listaArtigosFiltradosEOrdenados.filter(
+      (artigo) =>
+        artigo.nome.toLowerCase().includes(pesquisaNome.value.toLowerCase())
     );
+  }
+
+  // Ordenar
+  switch (orderArtigosBy) {
+    case "nome": {
+      listaArtigosFiltradosEOrdenados.sort((a, b) =>
+        a.nome.localeCompare(b.nome)
+      );
+      break;
+    }
+    case "categoria": {
+      listaArtigosFiltradosEOrdenados.sort((a, b) => {
+        const tipoA = a.tipo || "";
+        const tipoB = b.tipo || "";
+        return tipoA.localeCompare(tipoB);
+      });
+      break;
+    }
+    case "quantidade": {
+      listaArtigosFiltradosEOrdenados.sort(
+        (a, b) => a.quantidade - b.quantidade
+      );
+      break;
+    }
+    case "datainsercao": {
+      listaArtigosFiltradosEOrdenados.sort(
+        (a, b) => new Date(a.datainsercao) - new Date(b.datainsercao)
+      );
+      break;
+    }
+  }
+
+  if (orderAscOrDesc == "desc") {
+    listaArtigosFiltradosEOrdenados.reverse();
   }
 
   const tabelaArtigosContainer = document.getElementById(
@@ -270,18 +309,18 @@ async function adicionarTabelaArtigosDOM() {
   );
   tabelaArtigosContainer.innerHTML = "";
 
-  if (listaArtigosFiltrados.length == 0) {
+  if (listaArtigosFiltradosEOrdenados.length == 0) {
     tabelaArtigosContainer.innerHTML = `
         <p>Não existem artigos no inventário</p>
         `;
   } else {
     tabelaArtigosContainer.appendChild(
-      criarTabelaArtigos(listaArtigosFiltrados)
+      criarTabelaArtigos(listaArtigosFiltradosEOrdenados)
     );
   }
 }
 
-//Função para Adicionar a Tabela de Artigos ao DOM
+//Função para Adicionar a Tabela de Categorias ao DOM
 async function adicionarTabelaCategoriasDOM() {
   const listaCategorias = await getCategorias();
   const tabelaCategoriasContainer = document.getElementById(
@@ -492,12 +531,19 @@ function pesquisaPorNome(event) {
 }
 
 // Função para fazer o reset à pesquisa por nome e pesquisa por categoria e atualizar a tabela de artigos
+
 function resetPesquisaPorNome(event) {
   event.preventDefault();
   const selectCategorias = document.getElementById("selectCategorias");
   selectCategorias.value = -1;
   const pesquisaNome = document.getElementById("pesquisaNome");
   pesquisaNome.value = "";
+
+  const selectOrderArtigosBy = document.getElementById("selectOrderArtigosBy");
+  selectOrderArtigosBy.value = "id_artigo";
+  const selectOrderAscOrDesc = document.getElementById("selectOrderAscOrDesc");
+  selectOrderAscOrDesc.value = "asc";
+
   adicionarTabelaArtigosDOM();
 }
 
