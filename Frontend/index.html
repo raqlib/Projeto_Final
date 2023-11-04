@@ -40,9 +40,8 @@
     ></script>
 
     <!-- Import de Scripts -->
-    <script src="./scripts/scripts.js" defer></script>
-    <script src="./scripts/temaScripts.js" defer></script>
-    <script src="./scripts/voltarAoTopoScript.js" defer></script>
+    <script src="./scripts/uiScripts.js" defer></script>
+    <script src="./scripts/crudScripts.js" defer></script>
   </head>
   <body>
     <a id="topo"></a>
@@ -61,7 +60,7 @@
     <nav class="navbar navbar-expand-lg nav-tabs p-2 border-0 sticky-top">
       <div class="container-fluid">
         <button
-          class="navbar-toggler mb-1"
+          class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -72,7 +71,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse justify-content-around my-1"
+          class="collapse navbar-collapse justify-content-start my-1"
           id="navbarSupportedContent"
         >
           <ul class="navbar-nav gap-1">
@@ -88,7 +87,6 @@
               <a
                 class="nav-link fw-bold rounded-4 px-4 py-1"
                 href="artigos.html"
-                target=""
                 ><i class="bi bi-list"></i> Artigos</a
               >
             </li>
@@ -96,18 +94,25 @@
               <a
                 class="nav-link fw-bold rounded-4 px-4 py-1"
                 href="categorias.html"
-                target=""
                 ><i class="bi bi-sliders"></i> Categorias</a
               >
             </li>
           </ul>
         </div>
-        <!-- Botão para mudar de tema (light/dark) -->
-        <button
-          id="botaoMudarTema"
-          class="rounded-4"
-          onclick="toggleTheme()"
-        ></button>
+        <div id="utilizadorNavUIItens">
+          <!-- Utilizador -->
+          <span>email.email@itcenter.com</span>
+          <!-- Botão Logout -->
+          <button id="botaoLogout" class="rounded-4" onclick="()=>{}">
+            <i class="bi bi-power"></i>
+          </button>
+          <!-- Botão para mudar de tema (light/dark) -->
+          <button
+            id="botaoMudarTema"
+            class="rounded-4"
+            onclick="toggleTheme()"
+          ></button>
+        </div>
       </div>
     </nav>
 
@@ -115,7 +120,7 @@
     <main>
       <div class="formulario rounded-4">
         <form>
-          <h3>Inserir novos artigos</h3>
+          <h1>Inserir Novo Artigo</h1>
           <br />
           <p>
             Nome do artigo:
@@ -137,6 +142,7 @@
               required
             />
           </p>
+          <select name="selectCategorias" id="selectCategorias"></select>
           <p>
             Quantidade:
             <input
@@ -163,19 +169,8 @@
       <hr />
 
       <div>
-        <h3>Listagem dos últimos dez artigos inseridos</h3>
-        <form>
-          <select name="selectCategorias" id="selectCategorias"></select>
-          <input type="text" name="pesquisaNome" id="pesquisaNome" />
-          <button onclick="pesquisaPorNome(event)">Pesquisar</button>
-          <button type="reset" onclick="resetPesquisaPorNome(event)">
-            Limpar
-          </button>
-        </form>
-        <div
-          id="tabelaArtigosContainer"
-          class="bg-body-tertiary p-2 m-1 rounded-4"
-        ></div>
+        <h2 class="text-center">Últimos Artigos Adicionados</h2>
+        <div id="tabelaUltimos10ArtigosContainer"></div>
       </div>
     </main>
 

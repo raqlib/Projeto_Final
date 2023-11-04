@@ -1,21 +1,32 @@
 :root[theme="light"] {
-  --backgroundColor: linear-gradient(rgb(247, 169, 61), rgb(98, 231, 222));
-  --primaryColor: #06b3e8;
-  --secondaryColor: #19dddd;
+  --primaryColor: rgb(165, 203, 226);
+  --secondaryColor: rgb(247, 170, 62);
+  --tertiaryColor: rgb(165, 203, 226);
   --shadowColor: rgba(0, 0, 0, 0.5);
-  --primaryTextColor: #212121;
-  --secondaryTextColor: white;
+  --backColor: rgb(230, 230, 230);
+  --uiColor: rgb(255, 255, 255);
+  --backgroundColor: linear-gradient(
+    var(--secondaryColor),
+    var(--tertiaryColor)
+  );
+  --normalTextColor: rgb(34, 34, 34);
+  --accentTextColor: rgb(33, 48, 84);
 }
 
 :root[theme="dark"] {
-  --backgroundColor: #6e71ab;
-  --primaryColor: #8ecccc;
-  --secondaryColor: #93cfe1;
+  --primaryColor: rgb(165, 203, 226);
+  --secondaryColor: rgb(33, 48, 84);
+  --tertiaryColor: rgb(112, 70, 31);
   --shadowColor: rgba(255, 255, 255, 0.5);
-  --primaryTextColor: white;
-  --secondaryTextColor: #212121;
+  --backColor: rgb(50, 50, 50);
+  --uiColor: rgb(70, 70, 70);
+  --backgroundColor: linear-gradient(
+    var(--secondaryColor),
+    var(--tertiaryColor)
+  );
+  --normalTextColor: rgb(255, 255, 255);
+  --accentTextColor: rgb(234, 234, 234);
 }
-
 :root {
   scroll-behavior: smooth;
 }
@@ -32,6 +43,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: var(--secondaryColor);
   background: var(--backgroundColor);
 }
 
@@ -41,7 +53,7 @@ header {
   width: 100%;
   padding: 20px;
   text-align: center;
-  color: var(--primaryTextColor);
+  color: var(--accentTextColor);
 }
 
 /********************* CSS Navbar *********************/
@@ -59,6 +71,86 @@ main {
   justify-content: center;
   gap: 1rem;
   margin: 1rem 0;
+  color: var(--normalTextColor);
+}
+
+/********************* CSS Tabelas *********************/
+#tabelaUltimos10ArtigosContainer,
+#tabelaArtigosContainer,
+#tabelaCategoriasContainer {
+  background-color: var(--backColor);
+  border-radius: 1rem;
+  padding: 0rem 0.5rem 0.1rem 0.5rem;
+}
+#tabelaCategorias,
+#tabelaArtigos {
+  & thead tr th {
+    border-radius: 1rem;
+    background-color: var(--backColor);
+    color: var(--accentTextColor);
+    font-size: 0.8rem;
+  }
+  & thead tr,
+  tbody tr {
+    border-bottom: 0.1rem solid var(--primaryColor);
+  }
+  & tbody tr td {
+    background-color: var(--backColor);
+    color: var(--normalTextColor);
+    font-size: 0.8rem;
+    & button {
+      border-width: 0.1rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/********************* CSS Barra Pesquisa/ordenação *********************/
+#selectCategorias,
+#selectOrderArtigosBy,
+#selectOrderAscOrDesc {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  background-color: var(--uiColor);
+  color: var(--normalTextColor);
+}
+
+#barraPesquisaOrdenacao {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  & div {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+#caixaPesquisar {
+  border-bottom: 0.1rem solid var(--normalTextColor);
+  & input {
+    background-color: transparent;
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  & button {
+    border: none;
+    border-radius: 1rem;
+    background-color: transparent;
+    color: var(--normalTextColor);
+  }
+}
+
+#ordenarLimparContainer {
+  & button {
+    border-width: 0.1rem;
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+  }
 }
 
 /********************* CSS ?????? *********************/
@@ -99,19 +191,30 @@ main {
 footer {
   width: 100%;
   text-align: center;
+  color: var(--accentTextColor);
 }
 
-/********************* CSS Botão Mudar Tema *********************/
+/********************* CSS utilizadorNavUIItens *********************/
+
+#utilizadorNavUIItens {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  align-items: end;
+  font-size: 0.8rem;
+}
+
+/********************* CSS Botão Logout e Mudar Tema *********************/
+#botaoLogout,
 #botaoMudarTema {
   width: 2rem;
   height: 2rem;
   cursor: pointer;
   padding: 0.25rem;
   border: none;
-  margin-left: auto;
-  background-color: var(--secondaryColor);
+  background-color: var(--accentTextColor);
   font-size: 1rem;
-  color: var(--primaryTextColor);
+  color: var(--backColor);
   transition: all 0.25s ease-in-out;
   &:hover {
     opacity: 0.8;
@@ -129,10 +232,10 @@ footer {
   align-self: flex-end;
   border-radius: 1rem;
   margin-bottom: 0.1rem;
-  background-color: var(--secondaryColor);
+  background-color: var(--accentTextColor);
   text-decoration: none;
   font-size: 2.5rem;
-  color: var(--primaryTextColor);
+  color: var(--backColor);
   transition: all 0.5s ease-in-out;
   opacity: 0.8;
   &:hover {
@@ -150,31 +253,20 @@ dialog {
   transform: translate(-50%, -50%);
   max-width: 80dvw;
   padding: 1rem;
-  border: 2px solid var(--primaryColor);
+  border: 0.2rem solid var(--primaryColor);
   border-radius: 1rem;
-  background-color: var(--backgroundColor);
+  background: var(--backgroundColor);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  color: var(--primaryTextColor);
+  color: var(--normalTextColor);
   &::backdrop {
     backdrop-filter: blur(3px);
   }
-  & p {
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     padding: 1rem;
-  }
-}
-
-#dialogBotaoFechar {
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  border: 2px solid var(--primaryColor);
-  background-color: var(--secondaryColor);
-  cursor: pointer;
-  font-size: 1rem;
-  color: var(--primaryTextColor);
-  transition: all 0.25s ease-in-out;
-  &:hover {
-    opacity: 0.8;
-    box-shadow: 5px 5px 5px 0px var(--shadowColor);
   }
 }

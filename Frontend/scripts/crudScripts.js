@@ -238,10 +238,9 @@ function criarTabelaCategorias(listaCategorias) {
 
 // Funções Adicionar Tabelas ao DOM *************************************************************
 
-//Função para Adicionar a Tabela de Categorias ao DOM
-async function adicionarTabelaArtigosDOM() {
-  const listaArtigos = await getArtigos();
+// Função para Filtrar e Ordenar Lista de Artigos
 
+function filtrarOrdenarArtigos(listaArtigos) {
   // Filtrar e Ordenar Lista de Artigos
   const selectCategorias = document.getElementById("selectCategorias");
   let id_categoriaSelecionada = selectCategorias.value;
@@ -304,6 +303,15 @@ async function adicionarTabelaArtigosDOM() {
     listaArtigosFiltradosEOrdenados.reverse();
   }
 
+  return listaArtigosFiltradosEOrdenados;
+}
+
+//Função para Adicionar a Tabela de Artigos ao DOM
+async function adicionarTabelaArtigosDOM() {
+  const listaArtigos = await getArtigos();
+
+  listaArtigosFiltradosEOrdenados = filtrarOrdenarArtigos(listaArtigos);
+
   const tabelaArtigosContainer = document.getElementById(
     "tabelaArtigosContainer"
   );
@@ -316,6 +324,28 @@ async function adicionarTabelaArtigosDOM() {
   } else {
     tabelaArtigosContainer.appendChild(
       criarTabelaArtigos(listaArtigosFiltradosEOrdenados)
+    );
+  }
+}
+
+//Função para Adicionar os Últimos 10 Artigos ao DOM
+async function adicionarTabelaUltimos10ArtigosDOM() {
+  const listaArtigos = await getArtigos();
+
+  listaUltimos10Artigos = listaArtigos.reverse().slice(0, 10);
+
+  const tabelaUltimos10ArtigosContainer = document.getElementById(
+    "tabelaUltimos10ArtigosContainer"
+  );
+  tabelaUltimos10ArtigosContainer.innerHTML = "";
+
+  if (listaUltimos10Artigos.length == 0) {
+    tabelaUltimos10ArtigosContainer.innerHTML = `
+        <p>Não existem artigos no inventário</p>
+        `;
+  } else {
+    tabelaUltimos10ArtigosContainer.appendChild(
+      criarTabelaArtigos(listaUltimos10Artigos)
     );
   }
 }
@@ -346,15 +376,23 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
   const linhaArtigo = document.querySelector(`tr[id_artigo="${id_artigo}"]`);
   const dialog = document.getElementById("dialog");
   dialog.innerHTML = `
-          <h2>Atualizar Artigo</h2>
+          <h3>Atualizar Artigo</h3>
           <form>
-            <input type="text" name="nome" value="${nome}">
-            <select name="categoria">
-            </select>
-            <input type="number" name="quantidade" value="${quantidade}">
-            <button type="submit">Submeter Atualização</button>
+            <label> Nome:
+              <input type="text" name="nome" value="${nome}">
+            </label>
+            <label> Categoria:
+              <select name="categoria">
+              </select>
+            </label>
+            <label> Quantidade:
+              <input type="number" name="quantidade" value="${quantidade}">
+            </label>
+            <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
           </form>
-          <button onclick="dialog.close()">Cancelar</button>
+          <div>
+            <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+          </div>
     `;
 
   const listaCategorias = await getCategorias();
@@ -428,12 +466,16 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
   const dialog = document.getElementById("dialog");
 
   dialog.innerHTML = `
-          <h2>Atualizar Categoria</h2>
+          <h3>Atualizar Categoria</h3>
           <form>
-            <input type="text" name="tipo" value="${tipo_categoria}">
-            <button type="submit">Submeter Atualização</button>
+            <label> Tipo:
+              <input type="text" name="tipo" value="${tipo_categoria}">
+            </label>
+            <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
           </form>
-          <button onclick="dialog.close()">Cancelar</button>
+          <div>
+              <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+          </div>
     `;
 
   dialog.showModal();
@@ -554,7 +596,7 @@ const currentPath =
 switch (currentPath) {
   case "index.html": {
     adicionarOpcoesCategoriasSelectForm();
-    adicionarTabelaArtigosDOM();
+    adicionarTabelaUltimos10ArtigosDOM();
     break;
   }
   case "artigos.html": {
