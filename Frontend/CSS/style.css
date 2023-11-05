@@ -1,7 +1,7 @@
 :root[theme="light"] {
-  --primaryColor: rgb(165, 203, 226);
-  --secondaryColor: rgb(247, 170, 62);
-  --tertiaryColor: rgb(165, 203, 226);
+  --primaryColor: rgb(165, 200, 225);
+  --secondaryColor: rgb(250, 180, 75);
+  --tertiaryColor: rgb(165, 200, 225);
   --shadowColor: rgba(0, 0, 0, 0.5);
   --backColor: rgb(230, 230, 230);
   --uiColor: rgb(255, 255, 255);
@@ -9,23 +9,23 @@
     var(--secondaryColor),
     var(--tertiaryColor)
   );
-  --normalTextColor: rgb(34, 34, 34);
-  --accentTextColor: rgb(33, 48, 84);
+  --normalTextColor: rgb(35, 35, 35);
+  --accentTextColor: rgb(30, 50, 80);
 }
 
 :root[theme="dark"] {
-  --primaryColor: rgb(165, 203, 226);
-  --secondaryColor: rgb(33, 48, 84);
-  --tertiaryColor: rgb(112, 70, 31);
+  --primaryColor: rgb(165, 200, 225);
+  --secondaryColor: rgb(30, 50, 80);
+  --tertiaryColor: rgb(90, 70, 65);
   --shadowColor: rgba(255, 255, 255, 0.5);
-  --backColor: rgb(50, 50, 50);
-  --uiColor: rgb(70, 70, 70);
+  --backColor: rgb(55, 55, 55);
+  --uiColor: rgb(75, 75, 75);
   --backgroundColor: linear-gradient(
     var(--secondaryColor),
     var(--tertiaryColor)
   );
   --normalTextColor: rgb(255, 255, 255);
-  --accentTextColor: rgb(234, 234, 234);
+  --accentTextColor: rgb(235, 235, 235);
 }
 :root {
   scroll-behavior: smooth;
@@ -39,9 +39,10 @@
 }
 
 body {
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: var(--secondaryColor);
   background: var(--backgroundColor);
@@ -60,10 +61,12 @@ header {
 nav {
   width: 100%;
   background-color: var(--primaryColor);
+  box-shadow: 0px 0px 10px var(--shadowColor);
 }
 
 /********************* CSS Main *********************/
 main {
+  flex-grow: 1;
   max-width: 1200px;
   width: 90%;
   display: flex;
@@ -130,6 +133,9 @@ main {
 
 #caixaPesquisar {
   border-bottom: 0.1rem solid var(--normalTextColor);
+  border-radius: 0.5rem;
+  background-color: var(--uiColor);
+  padding: 0 1rem;
   & input {
     background-color: transparent;
     border: none;
@@ -192,6 +198,7 @@ footer {
   width: 100%;
   text-align: center;
   color: var(--accentTextColor);
+  font-size: 0.8rem;
 }
 
 /********************* CSS utilizadorNavUIItens *********************/
@@ -256,7 +263,7 @@ dialog {
   border: 0.2rem solid var(--primaryColor);
   border-radius: 1rem;
   background: var(--backgroundColor);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px var(--shadowColor);
   text-align: center;
   color: var(--normalTextColor);
   &::backdrop {

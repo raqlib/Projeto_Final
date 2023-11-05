@@ -40,6 +40,7 @@
     ></script>
 
     <!-- Import de Scripts -->
+    <script src="./scripts/initialScript.js"></script>
     <script src="./scripts/uiScripts.js" defer></script>
     <script src="./scripts/crudScripts.js" defer></script>
   </head>
@@ -101,15 +102,21 @@
         </div>
         <div id="utilizadorNavUIItens">
           <!-- Utilizador -->
-          <span>email.email@itcenter.com</span>
+          <span id="utilizadorInfo"></span>
           <!-- Botão Logout -->
-          <button id="botaoLogout" class="rounded-4" onclick="()=>{}">
+          <button
+            id="botaoLogout"
+            class="rounded-4"
+            title="Logout"
+            onclick="logout()"
+          >
             <i class="bi bi-power"></i>
           </button>
           <!-- Botão para mudar de tema (light/dark) -->
           <button
             id="botaoMudarTema"
             class="rounded-4"
+            title="Mudar Tema"
             onclick="toggleTheme()"
           ></button>
         </div>

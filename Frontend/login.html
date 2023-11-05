@@ -40,21 +40,15 @@
     ></script>
 
     <!-- Import de Scripts -->
-    <script src="./scripts/initialScript.js"></script>
     <script src="./scripts/uiScripts.js" defer></script>
-    <script src="./scripts/crudScripts.js" defer></script>
+    <script src="./scripts/loginScripts.js" defer></script>
   </head>
   <body>
     <a id="topo"></a>
 
     <!-- Header -->
     <header>
-      <h1><b>Inventário</b></h1>
-      <img
-        src="imagens/inventario.webp"
-        class="imagem_inventario"
-        alt="imagem_inventario"
-      />
+      <h1><b>I TRACKING</b></h1>
     </header>
 
     <!-- Navbar -->
@@ -77,39 +71,16 @@
         >
           <ul class="navbar-nav gap-1">
             <li class="nav-item">
-              <a class="nav-link fw-bold rounded-4 px-4 py-1" href="index.html"
-                ><i class="bi bi-house"></i> Início</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link fw-bold rounded-4 px-4 py-1"
-                href="artigos.html"
-                ><i class="bi bi-list"></i> Artigos</a
-              >
-            </li>
-            <li class="nav-item">
               <a
                 class="nav-link active fw-bold rounded-4 px-4 py-1"
                 aria-current="page"
-                href="categorias.html"
-                ><i class="bi bi-sliders"></i> Categorias</a
+                href="#"
+                ><i class="bi bi-house"></i> Início</a
               >
             </li>
           </ul>
         </div>
         <div id="utilizadorNavUIItens">
-          <!-- Utilizador -->
-          <span id="utilizadorInfo"></span>
-          <!-- Botão Logout -->
-          <button
-            id="botaoLogout"
-            class="rounded-4"
-            title="Logout"
-            onclick="logout()"
-          >
-            <i class="bi bi-power"></i>
-          </button>
           <!-- Botão para mudar de tema (light/dark) -->
           <button
             id="botaoMudarTema"
@@ -123,36 +94,13 @@
 
     <!-- Main -->
     <main>
-      <div class="formulario">
-        <br />
-        <form>
-          <h1>Inserir Nova Categoria</h1>
-          <br />
-          <p>
-            Categoria:
-            <input
-              type="text"
-              name="nome"
-              id="nome"
-              placeholder="Nome da categoria"
-              required
-            />
-          </p>
-          <p>
-            Data da inserção da categoria:
-            <input type="date" name="data" id="data" />
-          </p>
-          <input type="submit" value="Enviar" />
-          <input type="reset" value="Limpar" />
-        </form>
-      </div>
-
-      <hr />
-
-      <div>
-        <h2 class="text-center">Listagem de Categorias</h2>
-        <div id="tabelaCategoriasContainer"></div>
-      </div>
+      <h2>LOGIN</h2>
+      <form id="loginForm" onsubmit="login(event)">
+        <input type="email" name="emailLogin" id="emailLogin" />
+        <input type="password" name="passwordLogin" id="passwordLogin" />
+        <input type="submit" value="Enviar" />
+        <input type="reset" value="Limpar" />
+      </form>
     </main>
 
     <!-- Footer -->

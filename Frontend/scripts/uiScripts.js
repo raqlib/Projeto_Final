@@ -1,5 +1,14 @@
-// Script Verificar Utilizador ao Carregar a Página
+// Script para adicionar informacao do utilizador na navbar
+const utilizador = JSON.parse(sessionStorage.getItem("utilizador"));
+if (utilizador) {
+  document.getElementById("utilizadorInfo").innerText = utilizador.email;
+}
 
+// Script para Utilizador fazer logout
+function logout() {
+  sessionStorage.clear();
+  location.reload();
+}
 
 // Scripts JavaScript Tema light/dark
 
