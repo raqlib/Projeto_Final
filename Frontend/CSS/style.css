@@ -57,6 +57,28 @@ header {
   color: var(--accentTextColor);
 }
 
+/* TESTE PAGINA LOGIN HEADER */
+.header {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  & div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #tituloHeader {
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    text-shadow: 2px 2px 2px var(--shadowColor);
+  }
+  #lemaHeader {
+    font-style: italic;
+  }
+}
+
 /********************* CSS Navbar *********************/
 nav {
   width: 100%;
