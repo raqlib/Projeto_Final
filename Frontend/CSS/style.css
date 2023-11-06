@@ -18,7 +18,7 @@
   --secondaryColor: rgb(30, 50, 80);
   --tertiaryColor: rgb(90, 70, 65);
   --shadowColor: rgba(255, 255, 255, 0.5);
-  --backColor: rgb(55, 55, 55);
+  --backColor: rgb(60, 60, 60);
   --uiColor: rgb(75, 75, 75);
   --backgroundColor: linear-gradient(
     var(--secondaryColor),
@@ -154,7 +154,7 @@ main {
 }
 
 #caixaPesquisar {
-  border-bottom: 0.1rem solid var(--normalTextColor);
+  border-bottom: 0.1rem solid var(--primaryColor);
   border-radius: 0.5rem;
   background-color: var(--uiColor);
   padding: 0 1rem;
@@ -228,6 +228,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   gap: 0.5rem;
   padding: 1rem;
   border: 0.2rem solid var(--primaryColor);
@@ -245,6 +246,11 @@ footer {
   text-align: center;
   color: var(--accentTextColor);
   font-size: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+footer p {
+  margin: 0.25rem;
 }
 
 /********************* CSS utilizadorNavUIItens *********************/

@@ -566,7 +566,7 @@ async function adicionarOpcoesCategoriasSelectForm() {
   };
 }
 
-// Função para a pesquisa por nome e atuliazar a tabela de artigos
+// Função para a pesquisa por nome e atualizar a tabela de artigos
 function pesquisaPorNome(event) {
   event.preventDefault();
   adicionarTabelaArtigosDOM();
