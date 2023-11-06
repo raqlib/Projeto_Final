@@ -214,6 +214,30 @@ main {
   background-color: rgba(255, 157, 0, 0.781);
 }
 
+/********************* CSS Formularios Login *********************/
+
+.formulariosContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+#loginForm,
+#registoForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 0.2rem solid var(--primaryColor);
+  border-radius: 1rem;
+  background-color: var(--backColor);
+  box-shadow: 0px 0px 10px var(--shadowColor);
+  text-align: center;
+  color: var(--normalTextColor);
+}
+
 /********************* CSS Footer *********************/
 
 footer {
@@ -284,7 +308,7 @@ dialog {
   padding: 1rem;
   border: 0.2rem solid var(--primaryColor);
   border-radius: 1rem;
-  background: var(--backgroundColor);
+  background-color: var(--backColor);
   box-shadow: 0px 0px 10px var(--shadowColor);
   text-align: center;
   color: var(--normalTextColor);

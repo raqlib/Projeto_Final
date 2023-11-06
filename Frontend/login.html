@@ -98,13 +98,55 @@
 
     <!-- Main -->
     <main>
-      <h2>LOGIN</h2>
-      <form id="loginForm" onsubmit="login(event)">
-        <input type="email" name="emailLogin" id="emailLogin" />
-        <input type="password" name="passwordLogin" id="passwordLogin" />
-        <input type="submit" value="Enviar" />
-        <input type="reset" value="Limpar" />
-      </form>
+      <div class="formulariosContainer">
+        <form id="loginForm" onsubmit="login(event)">
+          <h2>Login</h2>
+          <label>
+            Email
+            <input type="email" name="emailLogin" id="emailLogin" />
+          </label>
+          <label>
+            Password
+            <input type="password" name="passwordLogin" id="passwordLogin" />
+          </label>
+          <input
+            class="btn btn-outline-success p-1"
+            type="submit"
+            value="Enviar"
+          />
+          <input
+            class="btn btn-outline-danger p-1"
+            type="reset"
+            value="Limpar"
+          />
+        </form>
+
+        <form id="registoForm" onsubmit="login(event)">
+          <h2>Registo</h2>
+          <label>
+            Nome
+            <input type="nome" name="nomeLogin" id="nomeRegisto" />
+          </label>
+          <label>
+            Email
+            <input type="email" name="emailLogin" id="emailRegisto" />
+          </label>
+          <label>
+            Password
+            <input type="password" name="passwordLogin" id="passwordRegisto" />
+          </label>
+          <input
+            class="btn btn-outline-success p-1"
+            type="submit"
+            value="Enviar"
+          />
+          <input
+            class="btn btn-outline-danger p-1"
+            type="reset"
+            value="Limpar"
+          />
+        </form>
+      </div>
     </main>
 
     <!-- Footer -->
