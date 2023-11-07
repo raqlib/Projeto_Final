@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 31-Out-2023 às 13:17
+-- Tempo de geração: 07-Nov-2023 às 10:31
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -168,6 +168,19 @@ INSERT INTO `categoria` (`id_categoria`, `tipo`) VALUES
 (9, 'Jogos'),
 (10, 'Ferramentas');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `utilizador`
+--
+
+CREATE TABLE `utilizador` (
+  `id_utilizador` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tabelas despejadas
 --
@@ -186,6 +199,12 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
+-- Índices para tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  ADD PRIMARY KEY (`id_utilizador`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -200,6 +219,12 @@ ALTER TABLE `artigo`
 --
 ALTER TABLE `categoria`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  MODIFY `id_utilizador` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas
