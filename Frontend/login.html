@@ -121,19 +121,23 @@
           />
         </form>
 
-        <form id="registoForm" onsubmit="login(event)">
+        <form id="registoForm" onsubmit="registarNovoUtilizador(event)">
           <h2>Registo</h2>
           <label>
             Nome
-            <input type="nome" name="nomeLogin" id="nomeRegisto" />
+            <input type="nome" name="nomeRegisto" id="nomeRegisto" />
           </label>
           <label>
             Email
-            <input type="email" name="emailLogin" id="emailRegisto" />
+            <input type="email" name="emailRegisto" id="emailRegisto" />
           </label>
           <label>
             Password
-            <input type="password" name="passwordLogin" id="passwordRegisto" />
+            <input
+              type="password"
+              name="passwordRegisto"
+              id="passwordRegisto"
+            />
           </label>
           <input
             class="btn btn-outline-success p-1"

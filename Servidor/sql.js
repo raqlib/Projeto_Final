@@ -27,10 +27,14 @@ const addArtigo = (req, res) => {
     "INSERT INTO artigo (nome, id_categoria, quantidade, datainsercao) VALUES (?)";
 
   connection.query(queryIArtigo, values, (err, result) => {
-    if (err) res.json(err);
-
-    res.send("Artigo Introduzido com Sucesso com o ID:" + result.insertId);
-
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Artigo Introduzido com Sucesso",
+        resourceId: result.insertId,
+      });
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -38,7 +42,7 @@ const addArtigo = (req, res) => {
   });
 };
 
-const addACategoria = (req, res) => {
+const addCategoria = (req, res) => {
   const body = req.body;
   const values = [[body.tipo]];
 
@@ -46,10 +50,38 @@ const addACategoria = (req, res) => {
   const queryICategoria = "INSERT INTO categoria (tipo) VALUES (?)";
 
   connection.query(queryICategoria, values, (err, result) => {
-    if (err) res.json(err);
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Categoria Introduzida com Sucesso",
+        resourceId: result.insertId,
+      });
+    }
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
 
-    res.send("Categoria Introduzida com Sucesso com o ID:" + result.insertId);
+const addUtilizador = (req, res) => {
+  const body = req.body;
+  const values = [[body.nome, body.email, body.password]];
 
+  const connection = openMySqlConnection();
+  const queryIUtilizador =
+    "INSERT INTO utilizador (nome, email, password) VALUES (?)";
+
+  connection.query(queryIUtilizador, values, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "Utilizador Introduzido com Sucesso",
+        resourceId: result.insertId,
+      });
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -80,7 +112,8 @@ const getArtigoPorId = (req, res) => {
 
   const connection = openMySqlConnection();
 
-  const querySArtigo = "SELECT * FROM artigo JOIN categoria ON artigo.id_categoria = categoria.id_categoria WHERE id_artigo = ?;";
+  const querySArtigo =
+    "SELECT * FROM artigo JOIN categoria ON artigo.id_categoria = categoria.id_categoria WHERE id_artigo = ?;";
 
   connection.query(querySArtigo, id, (err, result) => {
     if (err) {
@@ -95,9 +128,6 @@ const getArtigoPorId = (req, res) => {
   });
 };
 
-const getArtigosPorCategoria = () => {};
-const getArtigosPorNome = () => {};
-
 const getCategorias = (req, res) => {
   const connection = openMySqlConnection();
   const querySCategorias = "SELECT * FROM categoria;";
@@ -108,6 +138,26 @@ const getCategorias = (req, res) => {
       res.json(result);
     }
 
+    console.log(
+      "Close connection to MySql database: " + connection.config.database
+    );
+    connection.end();
+  });
+};
+
+const getUtilizador = (req, res) => {
+  const body = req.body;
+  const connection = openMySqlConnection();
+  const querySUtilizador =
+    "SELECT * FROM utilizador WHERE email = ? AND password = ?;";
+  const values = [[body.email], [body.password]];
+
+  connection.query(querySUtilizador, values, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
     console.log(
       "Close connection to MySql database: " + connection.config.database
     );
@@ -222,12 +272,12 @@ const deleteCategoria = (req, res) => {
 
 module.exports = {
   addArtigo,
-  addACategoria,
+  addCategoria,
+  addUtilizador,
   getArtigos,
   getArtigoPorId,
-  getArtigosPorCategoria,
-  getArtigosPorNome,
   getCategorias,
+  getUtilizador,
   updateArtigo,
   updateCategoria,
   deleteArtigo,

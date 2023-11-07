@@ -608,4 +608,8 @@ switch (currentPath) {
     adicionarTabelaCategoriasDOM();
     break;
   }
+  case "resumo.html": {
+    console.log("Entrou na página de resumo do inventário!");
+    break;
+  }
 }
