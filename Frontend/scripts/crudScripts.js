@@ -388,11 +388,11 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
             <label> Quantidade:
               <input type="number" name="quantidade" value="${quantidade}">
             </label>
-            <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
+            <div>
+              <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
+              <button class="btn btn-outline-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
+            </div>
           </form>
-          <div>
-            <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
-          </div>
     `;
 
   const listaCategorias = await getCategorias();
@@ -428,8 +428,10 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
 
     const response = await updateArtigo(id_artigo, data);
     if (response.message) {
-      alert(response.message);
-      dialog.close();
+      dialog.innerHTML = `
+      <p>${response.message}</p>
+      <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      `;
 
       const artigoAtualizado = await getArtigo(id_artigo);
       console.log(artigoAtualizado);
@@ -471,11 +473,11 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
             <label> Tipo:
               <input type="text" name="tipo" value="${tipo_categoria}">
             </label>
-            <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
+            <div>
+              <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
+              <button class="btn btn-outline-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
+            </div>
           </form>
-          <div>
-              <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
-          </div>
     `;
 
   dialog.showModal();
@@ -491,8 +493,11 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
 
     const response = await updateCategoria(id_categoria, data);
     if (response.message) {
-      alert(response.message);
-      dialog.close();
+      dialog.innerHTML = `
+      <p>${response.message}</p>
+      <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      `;
+
       linhaCategoria.innerHTML = `
           <td class="text-center align-middle">${tipo}</td>
           <td class="text-center align-middle">
@@ -513,6 +518,15 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
 
 // Função para Apagar um Artigo
 async function apagarArtigo(id) {
+
+  const dialog = document.getElementById("dialog");
+  dialog.innerHTML = `
+          <h3>Apagar Artigo</h3>
+          <button id="botaoApagar" class="btn btn-outline-success p-1" onclick="onclickApagar()">Apagar</button>
+          <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+    `;
+  dialog.showModal();
+
   if (confirm("Tem a certeza que deseja apagar o artigo?")) {
     const response = await deleteArtigo(id);
     if (response.message) {

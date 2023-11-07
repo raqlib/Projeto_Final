@@ -6,6 +6,16 @@ if (utilizador) {
 
 // Script para Utilizador fazer logout
 function logout() {
+  const dialog = document.getElementById("dialog");
+  dialog.innerHTML = `
+          <h3>Terminar Sessão</h3>
+          <button class="btn btn-outline-success p-1" onclick="onclickLogout()">Logout</button>
+          <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+    `;
+  dialog.showModal();
+}
+
+function onclickLogout() {
   sessionStorage.clear();
   location.reload();
 }
