@@ -52,10 +52,37 @@ body {
 
 header {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   color: var(--accentTextColor);
 }
+#container {
+  display: inline-block;
+  position: relative;
+}
+
+#container figcaption {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  font-size: 80px;
+  color: rgb(254, 254, 254);
+  left: 90px;
+  text-shadow: 3px 3px 5px black;
+
+}
+
+/********************* CSS imagem Header *********************/
+
+.imagem_inventario {
+  max-width: 100%;
+  width: 1100px;
+  height: 300px;
+  border-radius: 25px 25px;
+  
+}
+
 
 /* TESTE PAGINA LOGIN HEADER */
 .header {
@@ -136,7 +163,7 @@ main {
 #selectOrderAscOrDesc {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   background-color: var(--uiColor);
   color: var(--normalTextColor);
 }
@@ -146,7 +173,7 @@ main {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 0.8rem;
+  font-size: 1rem;
   & div {
     display: flex;
     gap: 0.5rem;
@@ -181,7 +208,7 @@ main {
   }
 }
 
-/********************* CSS ?????? *********************/
+/********************* CSS formulário *********************/
 .formulario {
   border: 3px solid var(--secondaryColor);
   max-width: fit-content;
@@ -189,24 +216,9 @@ main {
   font-size: large;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1rem;
 }
 
-.imagem_inventario {
-  width: 700px;
-  height: 400px;
-  border-radius: 25px 25px;
-}
-.imagem_artigos {
-  width: 600px;
-  height: 350px;
-  border-radius: 25px 25px;
-}
-
-.imagem_categorias {
-  width: 600px;
-  height: 350px;
-  border-radius: 25px 25px;
-}
 
 #tabela1 {
   text-align: center;
