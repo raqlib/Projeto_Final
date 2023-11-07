@@ -1,94 +1,86 @@
 // Login Scripts
 
-//   // Rota para verificar e retornar o registro
-//   app.post('/verificar-usuario', (req, res) => {
-//     const { email, password } = req.body;
+const APIbaseURL = "http://localhost:3000";
 
-//     // Consulta para verificar se o e-mail e a senha existem na tabela 'utilizador'
-//     const query = 'SELECT * FROM utilizador WHERE email = ? AND password = ?';
-//     connection.query(query, [email, password], (error, results) => {
-//       if (error) {
-//         res.status(500).send('Erro ao consultar o banco de dados');
-//         throw error;
-//       }
-//   Aqui retorna a lista toda em vê de só um!
-//       if (results.length > 0) {
-//         res.json(results[0]); // Retorna o primeiro registro encontrado
-//       } else {
-//         res.status(404).send('Usuário não encontrado');
-//       }
-//     });
-//   });
-
-function login(event) {
-  event.preventDefault();
-  const utilizador = {
-    email: event.target.emailLogin.value,
-    password: event.target.passwordLogin.value,
-  };
-  sessionStorage.setItem("utilizador", JSON.stringify(utilizador));
-  location.href = "index.html";
-
-  //   utilizador = await getUtilizador();
-  //   if (utilizador.lenght > 0) {
-  //     // sessionStorage.setItem("utilizador", JSON.stringify(utilizador[0]));
-  //     sessionStorage.setItem;
-  //     location.href = index.html;
-  //   } else {
-  //     alert(
-  //       "Utilizador não encontrado, email ou password erradas, ou não registado"
-  //     );
-  //   }
+// Função para buscar o utilizador
+async function getUtilizador(data) {
+  try {
+    const response = await fetch(`${APIbaseURL}/api/utilizador`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Erro ao verificar utilizador:", error);
+    return null;
+  }
 }
 
-//   ChatGPT com try catch
+// Função para criar um novo utilizador
+async function createUtilizador(data) {
+  try {
+    const response = await fetch(`${APIbaseURL}/api/utilizador/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Erro ao criar utilizador:", error);
+    throw error;
+  }
+}
 
-//   // Função para fazer a requisição e obter o usuário
-//   const verificarUsuario = async (email, password) => {
-//     try {
-//       const response = await fetch('/verificar-usuario', {
-//         method: 'POST',
-//         body: JSON.stringify({ email, password }),
-//         headers: {
-//           'Content-Type': 'application/json'
-//         }
-//       });
+// Função para fazer login
+async function login(event) {
+  event.preventDefault();
+  const email = event.target.emailLogin.value;
+  const password = event.target.passwordLogin.value;
+  const data = { email: email, password: password };
+  console.log(data);
+  try {
+    const utilizador = await getUtilizador(data);
+    console.log(utilizador);
+    if (utilizador.length > 0) {
+      sessionStorage.setItem("utilizador", JSON.stringify(utilizador[0]));
+      location.href = "index.html";
+    } else {
+      alert(
+        "Utilizador não encontrado (Não registado ou email e/ou password erradas)"
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  finally {
+    event.target.reset();
+  }
+}
 
-//       if (!response.ok) {
-//         throw new Error('Erro ao verificar o usuário');
-//       }
-
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       console.error('Erro:', error);
-//       return null;
-//     }
-//   };
-
-//   // Função para lidar com a resposta e executar a lógica adequada
-//   const lidarComResposta = async () => {
-//     const email = 'email@example.com'; // Substitua pelo email
-//     const password = 'senha123'; // Substitua pela senha
-
-//     try {
-//       const usuario = await verificarUsuario(email, password);
-
-//       if (usuario) {
-//         // Caso o usuário seja retornado com sucesso
-//         console.log('Usuário retornado:', usuario);
-//         // Realize ações necessárias após a autenticação bem-sucedida
-//         // Por exemplo, armazenar no sessionStorage e redirecionar para outra página
-//       } else {
-//         // Se o usuário não foi retornado
-//         console.log('Usuário não encontrado');
-//         // Exiba uma mensagem de erro ou tome outra ação adequada
-//       }
-//     } catch (error) {
-//       console.error('Erro ao lidar com a resposta:', error);
-//       // Lidar com possíveis erros ao lidar com a resposta
-//     }
-//   };
-
-//   // Chame a função para lidar com a resposta
-//   lidarComResposta();
+// Função para registar novo utilizador
+async function registarNovoUtilizador(event) {
+  event.preventDefault();
+  const nome = event.target.nomeRegisto.value;
+  const email = event.target.emailRegisto.value;
+  const password = event.target.passwordRegisto.value;
+  const data = { nome: nome, email: email, password: password };
+  try {
+    const response = await createUtilizador(data);
+    if (response.message) {
+      alert(response.message);
+    } else {
+      alert("Erro no registo do utilizador, tente novamente!");
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    event.target.reset();
+  }
+}
