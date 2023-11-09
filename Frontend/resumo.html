@@ -48,13 +48,9 @@
     <a id="topo"></a>
 
     <!-- Header -->
-    <header>
-      <h1><b>Inventário</b></h1>
-      <img
-        src="imagens/inventario.webp"
-        class="imagem_inventario"
-        alt="imagem_inventario"
-      />
+    <!-- Header -->
+    <header class="header">
+      <span id="tituloHeader">TRACKING INVENTORY</span>
     </header>
 
     <!-- Navbar -->
@@ -123,36 +119,8 @@
 
     <!-- Main -->
     <main>
-      <div class="formulario">
-        <br />
-        <form>
-          <h1>Inserir Nova Categoria</h1>
-          <br />
-          <p>
-            Categoria:
-            <input
-              type="text"
-              name="nome"
-              id="nome"
-              placeholder="Nome da categoria"
-              required
-            />
-          </p>
-          <p>
-            Data da inserção da categoria:
-            <input type="date" name="data" id="data" />
-          </p>
-          <input type="submit" value="Enviar" />
-          <input type="reset" value="Limpar" />
-        </form>
-      </div>
-
-      <hr />
-
-      <div>
-        <h2 class="text-center">Listagem de Categorias</h2>
-        <div id="tabelaCategoriasContainer"></div>
-      </div>
+      <h2 class="text-center">Resumo do Inventário</h2>
+      <div id="ondevaireceberaatabeladeresumo"></div>
     </main>
 
     <!-- Footer -->

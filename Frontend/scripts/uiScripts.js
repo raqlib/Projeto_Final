@@ -1,7 +1,7 @@
 // Script para adicionar informacao do utilizador na navbar
 const utilizador = JSON.parse(sessionStorage.getItem("utilizador"));
 if (utilizador) {
-  document.getElementById("utilizadorInfo").innerText = utilizador.email;
+  document.getElementById("utilizadorInfo").innerText = `🙎‍♂️ ${utilizador.nome}`;
 }
 
 // Script para Utilizador fazer logout

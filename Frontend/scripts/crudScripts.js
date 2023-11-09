@@ -236,6 +236,49 @@ function criarTabelaCategorias(listaCategorias) {
   return tabelaCategorias;
 }
 
+// Função para criar a tabela de resumo
+function criarTabelaResumo(listaCategorias, listaArtigos) {
+  const tabelaResumo = document.createElement("table");
+  tabelaResumo.id = "tabelaResumo";
+  tabelaResumo.classList.add("table");
+  tabelaResumo.classList.add("table-striped");
+  tabelaResumo.classList.add("table-hover");
+  tabelaResumo.innerHTML = `
+        <thead id="cabecalhoTabelaResumo">
+          <tr>
+            <th scope="col" class="text-center">Categoria</th>
+            <th scope="col" class="text-center">Número de Artigos</th>
+            <th scope="col" class="text-center">Quantidade Total de Artigos</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabelaResumo"></tbody>
+      `;
+
+  const corpoTabelaResumo = tabelaResumo.querySelector("tbody");
+
+  listaCategorias.forEach((categoria) => {
+    let somatorioArtigos = 0;
+    let somatorioQuantidades = 0;
+
+    listaArtigos.forEach((artigo) => {
+      if (artigo.id_categoria == categoria.id) {
+        somatorioArtigos++;
+        somatorioQuantidades += artigo.quantidade;
+      }
+    });
+
+    const linha = document.createElement("tr");
+    linha.setAttribute("id_categoria", categoria.id_categoria);
+    linha.innerHTML = `
+          <td class="text-center align-middle">${categoria.tipo}</td>
+          <td class="text-center align-middle">${somatorioArtigos}</td>
+          <td class="text-center align-middle">${somatorioQuantidade}</td>
+        `;
+    corpoTabelaResumo.appendChild(linha);
+  });
+  return tabelaResumo;
+}
+
 // Funções Adicionar Tabelas ao DOM *************************************************************
 
 // Função para Filtrar e Ordenar Lista de Artigos
@@ -369,7 +412,87 @@ async function adicionarTabelaCategoriasDOM() {
   }
 }
 
-// Funções Botões das Ações Atualizar e Apagar *************************************************************
+//Função para Adicionar a tabela de Resumo ao DOM
+async function adicionarTabelaResumoDOM() {
+  const listaCategorias = await getCategorias();
+  const listaArtigos = await getArtigos();
+
+  const tabelaResumoContainer = document.getElementById(
+    "tabelaResumoContainer"
+  );
+  tabelaResumoContainer.innerHTML = "";
+
+  if (listaCategorias.length == 0) {
+    tabelaResumoContainer.innerHTML = `
+        <p>Não existem categorias no inventário</p>
+        `;
+  } else {
+    tabelaResumoContainer.appendChild(
+      criarTabelaResumo(listaCategorias, listaArtigos)
+    );
+  }
+}
+
+// Funções Botões das Ações Adicionar, Atualizar e Apagar *************************************************************
+
+//Função para Adicionar um Artigo
+async function adicionarArtigo(event) {
+  event.preventDefault();
+  const nome = event.target.nomeArtigo.value;
+  console.log(typeof event.target.selectCategoriaArtigo.value);
+  const id_categoria =
+    event.target.selectCategoriaArtigo.value == 0
+      ? null
+      : event.target.selectCategoriaArtigo.value;
+  const quantidade = event.target.quantidadeArtigo.value;
+  const datainsercao = event.target.datainsercaoArtigo.value;
+
+  const data = {
+    nome: nome,
+    id_categoria: id_categoria,
+    quantidade: quantidade,
+    datainsercao: datainsercao,
+  };
+
+  try {
+    const response = await createArtigo(data);
+    if (response.message) {
+      alert(response.message);
+    } else {
+      alert("Erro ao adicionar o artigo, tente novamente!");
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    adicionarTabelaUltimos10ArtigosDOM();
+    event.target.reset();
+  }
+}
+
+//Função para Adicionar uma Categoria
+async function adicionarCategoria(event) {
+  event.preventDefault();
+
+  const tipo = event.target.nomeCategoria.value;
+
+  const data = {
+    tipo: tipo,
+  };
+
+  try {
+    const response = await createCategoria(data);
+    if (response.message) {
+      alert(response.message);
+    } else {
+      alert("Erro ao adicionar a categoria, tente novamente!");
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    adicionarTabelaCategoriasDOM();
+    event.target.reset();
+  }
+}
 
 //Função para Atualizar um Artigo
 async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
@@ -518,7 +641,6 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
 
 // Função para Apagar um Artigo
 async function apagarArtigo(id) {
-
   const dialog = document.getElementById("dialog");
   dialog.innerHTML = `
           <h3>Apagar Artigo</h3>
@@ -552,6 +674,24 @@ async function apagarCategoria(id) {
 }
 
 // Outras Funções *************************************************************
+
+// Função para adicionar as opçoes de categorias ao form adicionar artigo
+async function adicionarOpcoesCategoriasAdicionarArtigoForm() {
+  const selectCategorias = document.getElementById("selectCategoriaArtigo");
+  const listaCategorias = await getCategorias();
+
+  const optionSemCategoria = document.createElement("option");
+  optionSemCategoria.value = 0;
+  optionSemCategoria.textContent = "Sem Categoria";
+  selectCategorias.appendChild(optionSemCategoria);
+
+  listaCategorias.forEach((categoria) => {
+    const option = document.createElement("option");
+    option.value = categoria.id_categoria;
+    option.textContent = categoria.tipo;
+    selectCategorias.appendChild(option);
+  });
+}
 
 // Função para adicionar as opçoes de categorias ao select do form de pesquisa
 async function adicionarOpcoesCategoriasSelectForm() {
@@ -609,7 +749,7 @@ const currentPath =
 
 switch (currentPath) {
   case "index.html": {
-    adicionarOpcoesCategoriasSelectForm();
+    adicionarOpcoesCategoriasAdicionarArtigoForm();
     adicionarTabelaUltimos10ArtigosDOM();
     break;
   }
@@ -623,7 +763,7 @@ switch (currentPath) {
     break;
   }
   case "resumo.html": {
-    console.log("Entrou na página de resumo do inventário!");
+    adicionarTabelaResumoDOM();
     break;
   }
 }

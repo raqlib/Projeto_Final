@@ -48,11 +48,7 @@
 
     <!-- Header -->
     <header class="header">
-      <img src="./imagens/logo.png" alt="logo I Tracking" height="100px" />
-      <div>
-        <span id="tituloHeader">TRACKING INVENTORY</span>
-        <span id="lemaHeader">Controle o inventário dos seus artigos...</span>
-      </div>
+      <span id="tituloHeader">TRACKING INVENTORY</span>
     </header>
 
     <!-- Navbar -->
@@ -99,7 +95,7 @@
     <!-- Main -->
     <main>
       <div class="formulariosContainer">
-        <form id="loginForm" onsubmit="login(event)">
+        <form class="submeterForm" onsubmit="login(event)">
           <h2>Login</h2>
           <label>
             Email
@@ -111,19 +107,19 @@
           </label>
           <div>
             <input
-            class="btn btn-outline-success p-1"
-            type="submit"
-            value="Enviar"
+              class="btn btn-outline-success p-1"
+              type="submit"
+              value="Enviar"
             />
             <input
-            class="btn btn-outline-danger p-1"
-            type="reset"
-            value="Limpar"
+              class="btn btn-outline-danger p-1"
+              type="reset"
+              value="Limpar"
             />
           </div>
         </form>
 
-        <form id="registoForm" onsubmit="registarNovoUtilizador(event)">
+        <form class="submeterForm" onsubmit="registarNovoUtilizador(event)">
           <h2>Registo</h2>
           <label>
             Nome
@@ -143,14 +139,14 @@
           </label>
           <div>
             <input
-            class="btn btn-outline-success p-1"
-            type="submit"
-            value="Enviar"
+              class="btn btn-outline-success p-1"
+              type="submit"
+              value="Enviar"
             />
             <input
-            class="btn btn-outline-danger p-1"
-            type="reset"
-            value="Limpar"
+              class="btn btn-outline-danger p-1"
+              type="reset"
+              value="Limpar"
             />
           </div>
         </form>
