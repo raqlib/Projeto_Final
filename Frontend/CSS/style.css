@@ -112,14 +112,17 @@ main {
 /********************* CSS Tabelas *********************/
 #tabelaUltimos10ArtigosContainer,
 #tabelaArtigosContainer,
-#tabelaCategoriasContainer {
+#tabelaCategoriasContainer,
+#tabelaResumoContainer {
   width: 100%;
   background-color: var(--backColor);
   border-radius: 1rem;
   padding: 0rem 0.5rem 0.1rem 0.5rem;
 }
+
 #tabelaCategorias,
-#tabelaArtigos {
+#tabelaArtigos,
+#tabelaResumoContainer {
   & thead tr th {
     border-radius: 1rem;
     background-color: var(--backColor);

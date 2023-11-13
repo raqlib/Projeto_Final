@@ -256,23 +256,29 @@ function criarTabelaResumo(listaCategorias, listaArtigos) {
 
   const corpoTabelaResumo = tabelaResumo.querySelector("tbody");
 
+  console.log(listaArtigos);
+  console.log(listaCategorias);
+
   listaCategorias.forEach((categoria) => {
     let somatorioArtigos = 0;
     let somatorioQuantidades = 0;
 
     listaArtigos.forEach((artigo) => {
-      if (artigo.id_categoria == categoria.id) {
+      if (artigo.id_categoria == categoria.id_categoria) {
         somatorioArtigos++;
         somatorioQuantidades += artigo.quantidade;
       }
     });
+
+    console.log(somatorioArtigos);
+    console.log(somatorioQuantidades);
 
     const linha = document.createElement("tr");
     linha.setAttribute("id_categoria", categoria.id_categoria);
     linha.innerHTML = `
           <td class="text-center align-middle">${categoria.tipo}</td>
           <td class="text-center align-middle">${somatorioArtigos}</td>
-          <td class="text-center align-middle">${somatorioQuantidade}</td>
+          <td class="text-center align-middle">${somatorioQuantidades}</td>
         `;
     corpoTabelaResumo.appendChild(linha);
   });
@@ -555,10 +561,11 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
     const response = await updateArtigo(id_artigo, data);
 
     if (response.message) {
-      dialog.innerHTML = `
-      <p>${response.message}</p>
-      <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
-      `;
+      // dialog.innerHTML = `
+      // <p>${response.message}</p>
+      // <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      // `;
+      alert(response.message);
       const artigoAtualizado = await getArtigo(id_artigo);
       linhaArtigo.innerHTML = `
           <td class="align-middle">${artigoAtualizado.nome}</td>
@@ -580,6 +587,8 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
           <button class="btn btn-outline-danger p-1" onclick="apagarArtigo('${id_artigo}')">Apagar</button>
           </td>
         `;
+
+      dialog.close();
     } else {
       alert("Erro na atualização do artigo, tente novamente!");
       dialog.close();
@@ -620,10 +629,11 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
 
     const response = await updateCategoria(id_categoria, data);
     if (response.message) {
-      dialog.innerHTML = `
-      <p>${response.message}</p>
-      <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
-      `;
+      alert(response.message);
+      // dialog.innerHTML = `
+      // <p>${response.message}</p>
+      // <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      // `;
 
       linhaCategoria.innerHTML = `
           <td class="text-center align-middle">${tipo}</td>
@@ -636,6 +646,8 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
             </button>
           </td>
           `;
+
+      dialog.close();
     } else {
       alert("Erro na atualização da categoria, tente novamente!");
       dialog.close();
@@ -645,13 +657,13 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
 
 // Função para Apagar um Artigo
 async function apagarArtigo(id) {
-  const dialog = document.getElementById("dialog");
-  dialog.innerHTML = `
-          <h3>Apagar Artigo</h3>
-          <button id="botaoApagar" class="btn btn-outline-success p-1" onclick="onclickApagar()">Apagar</button>
-          <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
-    `;
-  dialog.showModal();
+  // const dialog = document.getElementById("dialog");
+  // dialog.innerHTML = `
+  //         <h3>Apagar Artigo</h3>
+  //         <button id="botaoApagar" class="btn btn-outline-success p-1" onclick="onclickApagar()">Apagar</button>
+  //         <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+  //   `;
+  // dialog.showModal();
 
   if (confirm("Tem a certeza que deseja apagar o artigo?")) {
     const response = await deleteArtigo(id);

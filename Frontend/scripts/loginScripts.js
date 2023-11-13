@@ -47,13 +47,12 @@ async function login(event) {
   console.log(data);
   try {
     const utilizador = await getUtilizador(data);
-    console.log(utilizador);
     if (utilizador.length > 0) {
       sessionStorage.setItem("utilizador", JSON.stringify(utilizador[0]));
       location.href = "index.html";
     } else {
       alert(
-        "Utilizador não encontrado (Não registado ou email e/ou password erradas)"
+        "Utilizador não se encontra registado ou dados de acesso incorretos!)"
       );
     }
   } catch (error) {
