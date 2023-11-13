@@ -362,7 +362,8 @@ async function adicionarTabelaArtigosDOM() {
 
   if (listaArtigosFiltradosEOrdenados.length == 0) {
     tabelaArtigosContainer.innerHTML = `
-        <p>Não existem artigos no inventário</p>
+        <p></p>
+        <p>Não existem artigos para mostrar!</p>
         `;
   } else {
     tabelaArtigosContainer.appendChild(
@@ -384,7 +385,8 @@ async function adicionarTabelaUltimos10ArtigosDOM() {
 
   if (listaUltimos10Artigos.length == 0) {
     tabelaUltimos10ArtigosContainer.innerHTML = `
-        <p>Não existem artigos no inventário</p>
+        <p></p>
+        <p>Não existem artigos para mostrar!</p>
         `;
   } else {
     tabelaUltimos10ArtigosContainer.appendChild(
@@ -403,7 +405,8 @@ async function adicionarTabelaCategoriasDOM() {
 
   if (listaCategorias.length == 0) {
     tabelaCategoriasContainer.innerHTML = `
-        <p>Não existem categorias no inventário</p>
+        <p></p>
+        <p>Não existem categorias para mostrar!</p>
         `;
   } else {
     tabelaCategoriasContainer.appendChild(
@@ -424,7 +427,8 @@ async function adicionarTabelaResumoDOM() {
 
   if (listaCategorias.length == 0) {
     tabelaResumoContainer.innerHTML = `
-        <p>Não existem categorias no inventário</p>
+        <p></p>
+        <p>Não existem categorias para mostrar!</p>
         `;
   } else {
     tabelaResumoContainer.appendChild(
@@ -540,7 +544,7 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
     const formData = new FormData(dialog.querySelector("form"));
     const nome = formData.get("nome");
     const id_categoria =
-      formData.get("categoria") === 0 ? null : formData.get("categoria");
+      formData.get("categoria") == 0 ? null : formData.get("categoria");
     const quantidade = formData.get("quantidade");
 
     const data = {
@@ -548,19 +552,19 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
       id_categoria: id_categoria,
       quantidade: quantidade,
     };
-
     const response = await updateArtigo(id_artigo, data);
+
     if (response.message) {
       dialog.innerHTML = `
       <p>${response.message}</p>
       <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
       `;
-
       const artigoAtualizado = await getArtigo(id_artigo);
-      console.log(artigoAtualizado);
       linhaArtigo.innerHTML = `
           <td class="align-middle">${artigoAtualizado.nome}</td>
-          <td class="text-center align-middle">${artigoAtualizado.tipo}</td>
+          <td class="text-center align-middle">${
+            artigoAtualizado.tipo ? artigoAtualizado.tipo : ""
+          }</td>
           <td class="text-center align-middle">${
             artigoAtualizado.quantidade
           }</td>
