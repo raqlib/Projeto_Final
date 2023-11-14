@@ -18,13 +18,13 @@ Este projeto consiste numa aplicação fullstack de gestão de inventário que t
 - Instalar as dependências de Node JS do servidor Express
     > npm install
 - Preparar a base de dados MySQL:
-    > Adicionar a base de dados "tracking_inventory" ao servidor local de MySql
+    > Adicionar a base de dados "tracking_inventory" ao servidor local de MySql\n
     > Importar o a estrutura das tabelas (BD/inventory_tracking.sql) no servidor local de MySql
 
 ### Correr o Projeto
 - Iniciar o servidor MySQL
 - Iniciar o servidor
-    > cd Servidor
+    > cd Servidor\n
     > npm start
 - Abrir o ficheiro Frontend/index.html em Live Server
 
