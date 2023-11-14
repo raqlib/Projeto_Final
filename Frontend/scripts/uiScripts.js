@@ -75,3 +75,8 @@ function verificarPosicaoRolagem() {
 window.addEventListener("scroll", verificarPosicaoRolagem);
 
 verificarPosicaoRolagem();
+
+// Scripts JavaScript Limitar Data Introduzida nos Formulários de Adicionar
+
+const dataAtual = new Date().toISOString().split("T")[0];
+document.getElementById("datainsercaoArtigo").setAttribute("max", dataAtual);
