@@ -10,22 +10,22 @@ Este projeto consiste numa aplicação fullstack de gestão de inventário que t
 
 ### Instalação
 - Clonar o repositório
-    > git clone https://github.com/raqlib/Projeto_Final.git
+    - git clone https://github.com/raqlib/Projeto_Final.git
 - Entrar na pasta do projeto
-    > cd Projeto_Final
+    - cd Projeto_Final
 - Entrar na pasta Servidor
-    > cd Servidor
+    - cd Servidor
 - Instalar as dependências de Node JS do servidor Express
-    > npm install
+    - npm install
 - Preparar a base de dados MySQL:
-    > Adicionar a base de dados "tracking_inventory" ao servidor local de MySql\n
-    > Importar o a estrutura das tabelas (BD/inventory_tracking.sql) no servidor local de MySql
+    - Adicionar a base de dados "tracking_inventory" ao servidor local de MySql\n
+    - Importar o a estrutura das tabelas (BD/inventory_tracking.sql) no servidor local de MySql
 
 ### Correr o Projeto
 - Iniciar o servidor MySQL
 - Iniciar o servidor
-    > cd Servidor\n
-    > npm start
+    - cd Servidor\n
+    - npm start
 - Abrir o ficheiro Frontend/index.html em Live Server
 
 ### Contribuições
