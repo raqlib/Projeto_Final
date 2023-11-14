@@ -9,8 +9,8 @@ function logout() {
   const dialog = document.getElementById("dialog");
   dialog.innerHTML = `
           <h3>Terminar Sessão</h3>
-          <button class="btn btn-outline-success p-1" onclick="onclickLogout()">Logout</button>
-          <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+          <button class="btn btn-success p-1" onclick="onclickLogout()">Logout</button>
+          <button class="btn btn-danger p-1" onclick="dialog.close()">Cancelar</button>
     `;
   dialog.showModal();
 }

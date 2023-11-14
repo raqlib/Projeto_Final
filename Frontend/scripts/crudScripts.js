@@ -185,12 +185,12 @@ function criarTabelaArtigos(listaArtigos) {
             artigo.datainsercao.split("T")[0]
           }</td>
           <td class="text-center align-middle">
-            <button class="btn btn-outline-success p-1" onclick="atualizarArtigo('${
+            <button class="btn btn-success p-1" onclick="atualizarArtigo('${
               artigo.id_artigo
             }','${artigo.nome}','${artigo.quantidade}','${
       artigo.id_categoria
     }')">Atualizar</button>
-            <button class="btn btn-outline-danger p-1" onclick="apagarArtigo('${
+            <button class="btn btn-danger p-1" onclick="apagarArtigo('${
               artigo.id_artigo
             }')">Apagar</button>
           </td>
@@ -226,8 +226,8 @@ function criarTabelaCategorias(listaCategorias) {
     linha.innerHTML = `
           <td class="text-center align-middle">${categoria.tipo}</td>
           <td class="text-center align-middle">
-            <button class="btn btn-outline-success p-1" onclick="atualizarCategoria('${categoria.id_categoria}','${categoria.tipo}')">Atualizar</button>
-            <button class="btn btn-outline-danger p-1" onclick="apagarCategoria('${categoria.id_categoria}')">Apagar</button>
+            <button class="btn btn-success p-1" onclick="atualizarCategoria('${categoria.id_categoria}','${categoria.tipo}')">Atualizar</button>
+            <button class="btn btn-danger p-1" onclick="apagarCategoria('${categoria.id_categoria}')">Apagar</button>
           </td>
         `;
     corpoTabelaCategorias.appendChild(linha);
@@ -522,8 +522,8 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
               <input type="number" name="quantidade" value="${quantidade}">
             </label>
             <div>
-              <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
-              <button class="btn btn-outline-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
+              <button class="btn btn-success p-1" type="submit">Atualizar</button>
+              <button class="btn btn-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
             </div>
           </form>
     `;
@@ -563,7 +563,7 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
     if (response.message) {
       // dialog.innerHTML = `
       // <p>${response.message}</p>
-      // <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      // <button class="btn btn-success p-1" onclick="dialog.close()">Fechar</button>
       // `;
       alert(response.message);
       const artigoAtualizado = await getArtigo(id_artigo);
@@ -579,12 +579,12 @@ async function atualizarArtigo(id_artigo, nome, quantidade, id_categoria) {
             artigoAtualizado.datainsercao.split("T")[0]
           }</td>
           <td class="text-center align-middle">
-          <button class="btn btn-outline-success p-1" onclick="atualizarArtigo('${id_artigo}','${
+          <button class="btn btn-success p-1" onclick="atualizarArtigo('${id_artigo}','${
         artigoAtualizado.nome
       }','${artigoAtualizado.quantidade}','${
         artigoAtualizado.id_categoria
       }')">Atualizar</button>
-          <button class="btn btn-outline-danger p-1" onclick="apagarArtigo('${id_artigo}')">Apagar</button>
+          <button class="btn btn-danger p-1" onclick="apagarArtigo('${id_artigo}')">Apagar</button>
           </td>
         `;
 
@@ -610,8 +610,8 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
               <input type="text" name="tipo" value="${tipo_categoria}">
             </label>
             <div>
-              <button class="btn btn-outline-success p-1" type="submit">Atualizar</button>
-              <button class="btn btn-outline-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
+              <button class="btn btn-success p-1" type="submit">Atualizar</button>
+              <button class="btn btn-danger p-1" type="reset" onclick="dialog.close()">Cancelar</button>
             </div>
           </form>
     `;
@@ -632,16 +632,16 @@ async function atualizarCategoria(id_categoria, tipo_categoria) {
       alert(response.message);
       // dialog.innerHTML = `
       // <p>${response.message}</p>
-      // <button class="btn btn-outline-success p-1" onclick="dialog.close()">Fechar</button>
+      // <button class="btn btn-success p-1" onclick="dialog.close()">Fechar</button>
       // `;
 
       linhaCategoria.innerHTML = `
           <td class="text-center align-middle">${tipo}</td>
           <td class="text-center align-middle">
-            <button class="btn btn-outline-success p-1" onclick="atualizarCategoria('${id_categoria}','${tipo}')">
+            <button class="btn btn-success p-1" onclick="atualizarCategoria('${id_categoria}','${tipo}')">
               Atualizar
             </button>
-            <button class="btn btn-outline-danger p-1" onclick="apagarCategoria('${id_categoria}')">
+            <button class="btn btn-danger p-1" onclick="apagarCategoria('${id_categoria}')">
               Apagar
             </button>
           </td>
@@ -660,8 +660,8 @@ async function apagarArtigo(id) {
   // const dialog = document.getElementById("dialog");
   // dialog.innerHTML = `
   //         <h3>Apagar Artigo</h3>
-  //         <button id="botaoApagar" class="btn btn-outline-success p-1" onclick="onclickApagar()">Apagar</button>
-  //         <button class="btn btn-outline-danger p-1" onclick="dialog.close()">Cancelar</button>
+  //         <button id="botaoApagar" class="btn btn-success p-1" onclick="onclickApagar()">Apagar</button>
+  //         <button class="btn btn-danger p-1" onclick="dialog.close()">Cancelar</button>
   //   `;
   // dialog.showModal();
 
