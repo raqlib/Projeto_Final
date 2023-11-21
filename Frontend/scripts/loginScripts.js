@@ -52,7 +52,7 @@ async function login(event) {
       location.href = "index.html";
     } else {
       alert(
-        "Utilizador não se encontra registado ou dados de acesso incorretos!)"
+        "Utilizador não se encontra registado, ou dados de acesso incorretos!"
       );
     }
   } catch (error) {

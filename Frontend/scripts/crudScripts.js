@@ -421,6 +421,8 @@ async function adicionarTabelaCategoriasDOM() {
 //Função para Adicionar a tabela de Resumo ao DOM
 async function adicionarTabelaResumoDOM() {
   const listaCategorias = await getCategorias();
+  listaCategorias.sort((a, b) => a.tipo.localeCompare(b.tipo));
+  
   const listaArtigos = await getArtigos();
 
   const tabelaResumoContainer = document.getElementById(
