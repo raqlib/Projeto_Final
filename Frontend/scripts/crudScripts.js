@@ -256,9 +256,6 @@ function criarTabelaResumo(listaCategorias, listaArtigos) {
 
   const corpoTabelaResumo = tabelaResumo.querySelector("tbody");
 
-  console.log(listaArtigos);
-  console.log(listaCategorias);
-
   listaCategorias.forEach((categoria) => {
     let somatorioArtigos = 0;
     let somatorioQuantidades = 0;
@@ -269,9 +266,6 @@ function criarTabelaResumo(listaCategorias, listaArtigos) {
         somatorioQuantidades += artigo.quantidade;
       }
     });
-
-    console.log(somatorioArtigos);
-    console.log(somatorioQuantidades);
 
     const linha = document.createElement("tr");
     linha.setAttribute("id_categoria", categoria.id_categoria);
@@ -404,6 +398,9 @@ async function adicionarTabelaUltimos10ArtigosDOM() {
 //Função para Adicionar a Tabela de Categorias ao DOM
 async function adicionarTabelaCategoriasDOM() {
   const listaCategorias = await getCategorias();
+
+  listaCategorias.sort((a, b) => a.tipo.localeCompare(b.tipo));
+
   const tabelaCategoriasContainer = document.getElementById(
     "tabelaCategoriasContainer"
   );
